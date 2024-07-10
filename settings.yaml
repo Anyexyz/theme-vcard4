@@ -1,13 +1,324 @@
 apiVersion: v1alpha1
 kind: Setting
 metadata:
-  name: theme-starter-setting
+  name: theme-vcard4-setting
 spec:
   forms:
-    - group: style
-      label: 样式
+    - group: index
+      label: 个人资料
       formSchema:
-        - $formkit: color
-          name: background_color
-          label: 背景颜色
-          value: "#f2f2f2"
+        - $formkit: group
+          name: header_info
+          label: 站点资料
+          children:
+            - $formkit: attachment
+              name: header_info_img
+              label: 头像
+              help: 自定义头像, 未填写时与站点设置 `Logo` 同步
+            - $formkit: text
+              name: header_info_title
+              label: 标题
+              help: 自定义标题, 未填写时与站点设置 `站点标题` 同步
+            - $formkit: text
+              name: header_info_subtitle
+              label: 职业
+              help: 自定义职业, 未填写时与站点设置 `站点副标题` 同步
+
+
+        - $formkit: group
+          name: header_contact
+          label: 联系方式
+          help: 注意！为空时则不显示
+          children:
+            - $formkit: text
+              name: email
+              label: 📮邮箱
+            - $formkit: text
+              name: phone
+              label: 📱电话
+            - $formkit: text
+              name: birthday
+              label: 🎂生日
+            - $formkit: text
+              name: Location
+              label: 🌏地区
+
+        - $formkit: repeater
+          name: social
+          label: 社交媒体
+          value: 
+            - icon: logo-rss
+              name: RSS
+              url: /rss.xml
+          children:
+            - $formkit: select
+              name: icon
+              label: 图标
+              options:
+                - label: 微信
+                  value: logo-wechat
+                - label: 抖音
+                  value: logo-tiktok
+                - label: Steam
+                  value: logo-steam
+                - label: Skype
+                  value: logo-skype
+                - label: Linkedin
+                  value: logo-linkedin
+                - label: Youtube
+                  value: logo-youtube
+                - label: X
+                  value: logo-twitter
+                - label: twitch
+                  value: logo-twitch
+                - label: Facebook
+                  value: logo-facebook
+                - label: Instagram
+                  value: logo-instagram
+                - label: Github
+                  value: logo-github
+                - label: RSS
+                  value: logo-rss
+            - $formkit: text
+              name: name
+              label: 名称
+            - $formkit: text
+              name: url
+              label: 链接
+              validation: "required"
+
+    - group: nav
+      label: 菜单栏
+      formSchema:
+        - $formkit: list
+          name: nav_list
+          label: 菜单列表
+          help: 由于本主题的独特设计, 菜单栏不受 Halo 菜单管理器控制, 请在此处选择启用
+          value: ["关于","简历","标签","博客","联系我"]
+          addButton: false
+          itemType: object
+          children:
+            - $formkit: select
+              index: "$index"
+              name: menu
+              options:
+                - label: 关于
+                  value: 关于
+                - label: 简历
+                  value: 简历
+                - label: 标签
+                  value: 标签
+                - label: 博客
+                  value: 博客
+                - label: 联系我
+                  value: 联系我
+        - $formkit: radio
+          name: default_nav
+          label: 默认菜单
+          help: 站点默认显示的菜单, 只有在上面的菜单列表中选择的菜单才会生效
+          value: 关于
+          options:
+            - label: 关于
+              value: 关于
+            - label: 简历
+              value: 简历
+            - label: 标签
+              value: 标签
+            - label: 博客
+              value: 博客
+            - label: 联系我
+              value: 联系我
+
+    - group: about
+      label: 关于页
+      formSchema:
+        - $formkit: text
+          name: title
+          label: 标题
+          value: "关于我"
+        - $formkit: group
+          name: about_me
+          label: 个人介绍
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: true
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [{"text":""}]
+              help: 个人介绍内容, 每个内容块为一个段落, 支持 HTML 语法
+              children:
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 100px
+                  language: html
+                  label: 新增内容
+        - $formkit: group
+          name: about_what
+          label: 开发项目
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              value: "项目"
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: title
+                  label: 项目名称
+                - $formkit: attachment
+                  name: images
+                  label: 图标
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 60px
+                  language: html
+                  label: 描述     
+        - $formkit: group
+          name: about_evaluate
+          label: 评价
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              value: "评价"
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 用户名
+                - $formkit: attachment
+                  name: images
+                  label: 头像
+                - $formkit: text
+                  name: time
+                  label: 评价时间
+                  value: ""
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 60px
+                  language: html
+                  label: 评价内容
+        - $formkit: group
+          name: about_clients
+          label: 合作客户
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: false
+            - $formkit: text
+              name: title
+              label: 标题
+              value: "合作客户"
+            - $formkit: repeater
+              name: content
+              label: 内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: url
+                  label: 链接
+                - $formkit: attachment
+                  name: images
+                  label: Logo
+    
+    - group: resume
+      label: 简历页
+      formSchema:
+        - $formkit: text
+          name: title
+          label: 标题
+          value: "简历"
+        - $formkit: repeater
+          name: timeline
+          label: 时间线
+          value: [{"title":"教育经历","icon":"book-outline","content":[]},{"title":"工作经历","icon":"briefcase-outline","content":[]}]
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: true
+            - $formkit: text
+              name: title
+              label: 标题
+            - $formkit: text
+              name: icon
+              label: 图标
+            - $formkit: repeater
+              name: content
+              label: 节点
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: time
+                  label: 时间
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 50px
+                  language: html
+                  label: 简介
+        - $formkit: repeater
+          name: skills
+          label: 技能
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: true
+            - $formkit: text
+              name: title
+              label: 名称
+              value: "技能"
+            - $formkit: repeater
+              name: content
+              label: 新增内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: num
+                  label: 百分比
+
+    - group: contact
+      label: 联系页
+      formSchema:
+        - $formkit: repeater
+          name: content
+          label: 内容
+          value: [ ]
+          children: 
+            - $formkit: code
+              name: text
+              value: ""
+              height: 200px
+              language: html
+              label: 内容
