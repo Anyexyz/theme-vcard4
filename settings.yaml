@@ -211,10 +211,6 @@ spec:
                 - $formkit: attachment
                   name: images
                   label: 头像
-                - $formkit: text
-                  name: time
-                  label: 评价时间
-                  value: ""
                 - $formkit: code
                   name: text
                   value: ""

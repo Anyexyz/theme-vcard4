@@ -78,170 +78,68 @@
           </li>
         </ul>
         <div class="separator"></div>
-        <th:block th:with="social = ${theme.config.index.social}">
-          <ul class="social-list">
+          <ul class="social-list" th:with="social = ${theme.config.index.social}">
             <li class="social-item" th:each="social_item : ${social}">
               <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
                 <ion-icon th:name="${social_item.icon}"></ion-icon>
               </a>
             </li>
           </ul>
-        </th:block>
       </div>
     </aside>
     <div class="main-content">
       <nav class="navbar">
-
-        <th:block th:with="nav_data = ${theme.config.nav}">
-          <ul class="navbar-list">
-            <li class="navbar-item" th:each="navbar_item : ${nav_data.nav_list}">
-              <button data-nav-link
-                th:class="${nav_data.default_nav == navbar_item} ? 'navbar-link active' : 'navbar-link'"
-                th:text="${navbar_item}"></button>
-            </li>
-          </ul>
-        </th:block>
-
+        <ul class="navbar-list" th:with="nav_data = ${theme.config.nav}">
+          <li class="navbar-item" th:each="navbar_item : ${nav_data.nav_list}">
+            <button data-nav-link
+              th:class="${nav_data.default_nav == navbar_item} ? 'navbar-link active' : 'navbar-link'"
+              th:text="${navbar_item}"></button>
+          </li>
+        </ul>
       </nav>
       <article class="about active" th:class="${theme.config.nav.default_nav == '关于'} ? 'about active' : 'about'"
         data-page="关于">
         <header>
-          <h2 class="h2 article-title">关于我</h2>
+          <h2 class="h2 article-title" th:text="${theme.config.about.title}"></h2>
         </header>
-        <section class="about-text">
-          <p>
-            我是Anye，一名高校学生，喜欢折腾各种有趣的事物。无论是编程、电子DIY、还是新科技的探索，我都乐在其中。在这片博客天地里，我会分享我的学习心得、实验成果和生活感悟。希望通过这些文字，不仅能记录自己的成长历程，还能与大家共同探讨、交流，一起享受探索的乐趣。
-          </p>
-          <p>
-            无论你是对技术感兴趣，还是喜欢发现生活中的小确幸，都欢迎常来看看。让我们一起，在这条充满未知和惊喜的道路上，不断前行！
-          </p>
-        </section>
-        <section class="service">
-          <h3 class="h3 service-title">我在做什么</h3>
-          <ul class="service-list">
-            <li class="service-item">
 
+        <section class="about-text" th:if="${theme.config.about.about_me.switch==true}">
+          <th:block th:with="content = ${theme.config.about.about_me.content}">
+            <p th:utext="${content_list.text}" th:each="content_list : ${content}"></p>
+          </th:block>
+        </section>
+
+        <section class="service" th:if="${theme.config.about.about_what.switch==true}">
+          <h3 class="h3 service-title" th:text="${theme.config.about.about_what.title}"></h3>
+          <ul class="service-list" th:with="project = ${theme.config.about.about_what.content}">
+            <li class="service-item" th:each="project_list : ${project}">
               <div class="service-icon-box">
-                <img src="https://cdn.anye.xyz/favicon.png" alt="Anyeの小站" width="40">
+                <img th:src="${project_list.images}" alt="${project_list.title}" width="40">
               </div>
               <div class="service-content-box">
-                <h4 class="h4 service-item-title">Anyeの小站</h4>
-                <p class="service-item-text">
-                  这是我的个人博客，记录了我学习、生活的点点滴滴。欢迎来逛逛！
-                </p>
-              </div>
-            </li>
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="https://www.sdbase.cn/upload/%E6%B0%B4%E6%BB%B4.svg" alt="水滴基地" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">水滴基地</h4>
-                <p class="service-item-text">
-                  致力于分享优质软件资源的在线平台。
-                </p>
-              </div>
-            </li>
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="https://www.1panel.wiki/favicon.png" alt="1Panel wiki" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">1Panel wiki</h4>
-                <p class="service-item-text">
-                  这里汇集了 1Panel 的官方文档和常见问答，以及社区贡献的各种服务和工具。
-                </p>
-              </div>
-            </li>
-            <li class="service-item">
-              <div class="service-icon-box">
-                <img src="https://cdn.anye.xyz/favicon.png" alt="Anye小站" width="40">
-              </div>
-              <div class="service-content-box">
-                <h4 class="h4 service-item-title">Anye小站</h4>
-                <p class="service-item-text">
-                  微信公众号
-                </p>
+                <h4 class="h4 service-item-title" th:text="${project_list.title}"></h4>
+                <p class="service-item-text" th:text="${project_list.text}"></p>
               </div>
             </li>
           </ul>
         </section>
-        <section class="testimonials">
-          <h3 class="h3 testimonials-title">评价</h3>
-          <ul class="testimonials-list has-scrollbar">
-            <li class="testimonials-item">
+        <section class="testimonials" th:if="${theme.config.about.about_evaluate.switch==true}">
+          <h3 class="h3 testimonials-title" th:text="${theme.config.about.about_evaluate.title}"></h3>
+          <ul class="testimonials-list has-scrollbar" th:with="evaluate = ${theme.config.about.about_evaluate.content}">
+            <li class="testimonials-item" th:each="evaluate_list : ${evaluate}">
               <div class="content-card" data-testimonials-item>
                 <figure class="testimonials-avatar-box">
-                  <img th:src="@{/assets/images/avatar-1.png}" alt="Daniel lewis" width="60" data-testimonials-avatar>
+                  <img th:src="${evaluate_list.images}" alt="${evaluate_list.name}" width="60" data-testimonials-avatar>
                 </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Daniel lewis</h4>
+                <h4 class="h4 testimonials-item-title" data-testimonials-title th:text="${evaluate_list.name}"></h4>
                 <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img th:src="@{/assets/images/avatar-2.png}" alt="Jessica miller" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Jessica miller</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img th:src="@{/assets/images/avatar-3.png}" alt="Emily evans" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Emily evans</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li class="testimonials-item">
-              <div class="content-card" data-testimonials-item>
-                <figure class="testimonials-avatar-box">
-                  <img th:src="@{/assets/images/avatar-4.png}" alt="Henry william" width="60" data-testimonials-avatar>
-                </figure>
-                <h4 class="h4 testimonials-item-title" data-testimonials-title>Henry william</h4>
-                <div class="testimonials-text" data-testimonials-text>
-                  <p>
-                    Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                    lot of experience
-                    and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                    consectetur adipiscing
-                    elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                  </p>
+                  <p th:text="${evaluate_list.text}"></p>
                 </div>
               </div>
             </li>
           </ul>
         </section>
-        <!--
-          - testimonials modal
-        -->
+
         <div class="modal-container" data-modal-container>
           <div class="overlay" data-overlay></div>
           <section class="testimonials-modal">
@@ -250,59 +148,24 @@
             </button>
             <div class="modal-img-wrapper">
               <figure class="modal-avatar-box">
-                <img th:src="@{/assets/images/avatar-1.png}" alt="Daniel lewis" width="80" data-modal-img>
+                <img src="" alt="" width="80" data-modal-img>
               </figure>
               <img th:src="@{/assets/images/icon-quote.svg}" alt="quote icon">
             </div>
             <div class="modal-content">
-              <h4 class="h3 modal-title" data-modal-title>Daniel lewis</h4>
-              <time datetime="2021-06-14">14 June, 2021</time>
+              <h4 class="h3 modal-title" data-modal-title></h4>
               <div data-modal-text>
-                <p>
-                  Richard was hired to create a corporate identity. We were very pleased with the work done. She has a
-                  lot of experience
-                  and is very concerned about the needs of client. Lorem ipsum dolor sit amet, ullamcous cididt
-                  consectetur adipiscing
-                  elit, seds do et eiusmod tempor incididunt ut laborels dolore magnarels alia.
-                </p>
+                <p></p>
               </div>
             </div>
           </section>
         </div>
-        <!--
-          - clients
-        -->
-        <section class="clients">
-          <h3 class="h3 clients-title">Clients</h3>
-          <ul class="clients-list has-scrollbar">
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-1-color.png}" alt="client logo">
-              </a>
-            </li>
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-2-color.png}" alt="client logo">
-              </a>
-            </li>
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-3-color.png}" alt="client logo">
-              </a>
-            </li>
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-4-color.png}" alt="client logo">
-              </a>
-            </li>
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-5-color.png}" alt="client logo">
-              </a>
-            </li>
-            <li class="clients-item">
-              <a href="#">
-                <img th:src="@{/assets/images/logo-6-color.png}" alt="client logo">
+        <section class="clients" th:if="${theme.config.about.about_clients.switch==true}">
+          <h3 class="h3 clients-title" th:text="${theme.config.about.about_clients.title}"></h3>
+          <ul class="clients-list has-scrollbar" th:with="clients = ${theme.config.about.about_clients.content}">
+            <li class="clients-item" th:each="clients_list : ${clients}">
+              <a th:href="${clients_list.url}">
+                <img th:src="${clients_list.images}" th:alt="${clients_list.name}" />
               </a>
             </li>
           </ul>
@@ -310,7 +173,7 @@
       </article>
       <article th:class="${theme.config.nav.default_nav == '简历'} ? 'resume active' : 'resume'" data-page="简历">
         <header>
-          <h2 class="h2 article-title">简历</h2>
+          <h2 class="h2 article-title" th:text="${theme.config.resume.title}"></h2>
         </header>
         <section class="timeline">
           <div class="title-wrapper">
