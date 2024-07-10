@@ -46,6 +46,8 @@ spec:
         - $formkit: repeater
           name: social
           label: 社交媒体
+          max: 6
+          help: 为保证页面美观, 限制最多显示 6 个社交媒体
           value: 
             - icon: logo-rss
               name: RSS
@@ -75,6 +77,8 @@ spec:
                   value: logo-facebook
                 - label: Instagram
                   value: logo-instagram
+                - label: Telegram
+                  value: paper-plane
                 - label: Github
                   value: logo-github
                 - label: RSS

@@ -22,7 +22,8 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 
 ## 插件支持
 
-- [x] 评论组件：https://www.halo.run/store/apps/app-YXyaD
+- [x] [评论组件](https://www.halo.run/store/apps/app-YXyaD)
+- [x] [RSS](https://www.halo.run/store/apps/app-KhIVw)
 
 ## 🏭 贡献
 

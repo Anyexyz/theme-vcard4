@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,16 +12,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <main>
     <aside class="sidebar" data-sidebar>
       <div class="sidebar-info">
         <figure class="avatar-box">
-          <img th:src="${site.logo}" th:alt="${site.title}" width="80">
+          <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
+            th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80">
         </figure>
         <div class="info-content">
-          <h1 class="name" th:title="${site.title}" th:text="${site.title}"></h1>
-          <p class="title">高校学生</p>
+          <h1 class="name" th:text="${theme.config.index.header_info.header_info_title  ?: site.title}"></h1>
+          <p class="title" th:text="${theme.config.index.header_info.header_info_subtitle ?: site.subtitle}"></p>
         </div>
         <button class="info_more-btn" data-sidebar-btn>
           <span>个人信息</span>
@@ -30,61 +33,60 @@
       <div class="sidebar-info_more">
         <div class="separator"></div>
         <ul class="contacts-list">
-          <li class="contact-item">
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.email != null and !theme.config.index.header_contact.email.isEmpty()}">
             <div class="icon-box">
               <ion-icon name="mail-outline"></ion-icon>
             </div>
             <div class="contact-info">
               <p class="contact-title">邮箱</p>
-              <a href="mailto:richard@example.com" class="contact-link">anyexyz@foxmail.com</a>
+              <a th:href="'mailto:' + ${theme.config.index.header_contact.email}" class="contact-link"
+                th:text="${theme.config.index.header_contact.email}"></a>
             </div>
           </li>
-          <li class="contact-item">
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.phone != null and !theme.config.index.header_contact.phone.isEmpty()}">
             <div class="icon-box">
               <ion-icon name="phone-portrait-outline"></ion-icon>
             </div>
             <div class="contact-info">
               <p class="contact-title">电话</p>
-              <a href="tel:+12133522795" class="contact-link">+44 7594 228807</a>
+              <a href="tel:${theme.config.index.header_contact.phone}" class="contact-link"
+                th:text="${theme.config.index.header_contact.phone}"></a>
             </div>
           </li>
-          <li class="contact-item">
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.birthday != null and !theme.config.index.header_contact.birthday.isEmpty()}">
             <div class="icon-box">
               <ion-icon name="calendar-outline"></ion-icon>
             </div>
             <div class="contact-info">
               <p class="contact-title">生日</p>
-              <time datetime="1982-06-23">2003-10-01</time>
+              <time datetime="${theme.config.index.header_contact.birthday}"
+                th:text="${theme.config.index.header_contact.birthday}"></time>
             </div>
           </li>
-          <li class="contact-item">
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.Location != null and !theme.config.index.header_contact.Location.isEmpty()}">
             <div class="icon-box">
               <ion-icon name="location-outline"></ion-icon>
             </div>
             <div class="contact-info">
               <p class="contact-title">地区</p>
-              <address>Beijng, China</address>
+              <address th:text="${theme.config.index.header_contact.Location}"></address>
             </div>
           </li>
         </ul>
         <div class="separator"></div>
-        <ul class="social-list">
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-        </ul>
+        <th:block th:with="social = ${theme.config.index.social}">
+          <ul class="social-list">
+            <li class="social-item" th:each="social_item : ${social}">
+              <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
+                <ion-icon th:name="${social_item.icon}"></ion-icon>
+              </a>
+            </li>
+          </ul>
+        </th:block>
       </div>
     </aside>
     <div class="main-content">
@@ -123,7 +125,7 @@
           <h3 class="h3 service-title">我在做什么</h3>
           <ul class="service-list">
             <li class="service-item">
-              
+
               <div class="service-icon-box">
                 <img src="https://cdn.anye.xyz/favicon.png" alt="Anyeの小站" width="40">
               </div>
@@ -728,7 +730,8 @@
     </div>
   </main>
   <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
-<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
+
 </html>
