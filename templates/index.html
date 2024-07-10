@@ -91,25 +91,20 @@
     </aside>
     <div class="main-content">
       <nav class="navbar">
-        <ul class="navbar-list">
-          <li class="navbar-item">
-            <button class="navbar-link  active" data-nav-link>关于</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>经历</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>分类</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>博客</button>
-          </li>
-          <li class="navbar-item">
-            <button class="navbar-link" data-nav-link>联系我</button>
-          </li>
-        </ul>
+
+        <th:block th:with="nav_data = ${theme.config.nav}">
+          <ul class="navbar-list">
+            <li class="navbar-item" th:each="navbar_item : ${nav_data.nav_list}">
+              <button data-nav-link
+                th:class="${nav_data.default_nav == navbar_item} ? 'navbar-link active' : 'navbar-link'"
+                th:text="${navbar_item}"></button>
+            </li>
+          </ul>
+        </th:block>
+
       </nav>
-      <article class="about  active" data-page="关于">
+      <article class="about active" th:class="${theme.config.nav.default_nav == '关于'} ? 'about active' : 'about'"
+        data-page="关于">
         <header>
           <h2 class="h2 article-title">关于我</h2>
         </header>
@@ -313,9 +308,9 @@
           </ul>
         </section>
       </article>
-      <article class="resume" data-page="经历">
+      <article th:class="${theme.config.nav.default_nav == '简历'} ? 'resume active' : 'resume'" data-page="简历">
         <header>
-          <h2 class="h2 article-title">经历</h2>
+          <h2 class="h2 article-title">简历</h2>
         </header>
         <section class="timeline">
           <div class="title-wrapper">
@@ -432,7 +427,7 @@
           </ul>
         </section>
       </article>
-      <article class="portfolio" data-page="分类">
+      <article th:class="${theme.config.nav.default_nav == '分类'} ? 'portfolio active' : 'portfolio'" data-page="分类">
         <header>
           <h2 class="h2 article-title">分类</h2>
         </header>
@@ -585,7 +580,7 @@
           </ul>
         </section>
       </article>
-      <article class="blog" data-page="博客">
+      <article th:class="${theme.config.nav.default_nav == '博客'} ? 'blog active' : 'blog'" data-page="博客">
         <header>
           <h2 class="h2 article-title">博客</h2>
         </header>
@@ -702,7 +697,7 @@
           </ul>
         </section>
       </article>
-      <article class="contact" data-page="联系我">
+      <article th:class="${theme.config.nav.default_nav == '联系我'} ? 'contact active' : 'contact'" data-page="联系我">
         <header>
           <h2 class="h2 article-title">联系我</h2>
         </header>

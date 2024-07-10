@@ -24,7 +24,6 @@ spec:
               label: 职业
               help: 自定义职业, 未填写时与站点设置 `站点副标题` 同步
 
-
         - $formkit: group
           name: header_contact
           label: 联系方式
@@ -98,7 +97,7 @@ spec:
           name: nav_list
           label: 菜单列表
           help: 由于本主题的独特设计, 菜单栏不受 Halo 菜单管理器控制, 请在此处选择启用
-          value: ["关于","简历","标签","博客","联系我"]
+          value: ["关于","简历","分类","博客","联系我"]
           addButton: false
           itemType: object
           children:
@@ -110,8 +109,8 @@ spec:
                   value: 关于
                 - label: 简历
                   value: 简历
-                - label: 标签
-                  value: 标签
+                - label: 分类
+                  value: 分类
                 - label: 博客
                   value: 博客
                 - label: 联系我
@@ -119,15 +118,15 @@ spec:
         - $formkit: radio
           name: default_nav
           label: 默认菜单
-          help: 站点默认显示的菜单, 只有在上面的菜单列表中选择的菜单才会生效
+          help: 站点默认显示的菜单
           value: 关于
           options:
             - label: 关于
               value: 关于
             - label: 简历
               value: 简历
-            - label: 标签
-              value: 标签
+            - label: 分类
+              value: 分类
             - label: 博客
               value: 博客
             - label: 联系我
