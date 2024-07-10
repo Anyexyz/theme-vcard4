@@ -97,7 +97,7 @@ spec:
           name: nav_list
           label: 菜单列表
           help: 由于本主题的独特设计, 菜单栏不受 Halo 菜单管理器控制, 请在此处选择启用
-          value: ["关于","简历","分类","博客","联系我"]
+          value: ["关于","简历","图库","博客","联系我"]
           addButton: false
           itemType: object
           children:
@@ -109,8 +109,8 @@ spec:
                   value: 关于
                 - label: 简历
                   value: 简历
-                - label: 分类
-                  value: 分类
+                - label: 图库
+                  value: 图库
                 - label: 博客
                   value: 博客
                 - label: 联系我
@@ -125,8 +125,8 @@ spec:
               value: 关于
             - label: 简历
               value: 简历
-            - label: 分类
-              value: 分类
+            - label: 图库
+              value: 图库
             - label: 博客
               value: 博客
             - label: 联系我
