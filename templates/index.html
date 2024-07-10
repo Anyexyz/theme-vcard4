@@ -78,13 +78,13 @@
           </li>
         </ul>
         <div class="separator"></div>
-          <ul class="social-list" th:with="social = ${theme.config.index.social}">
-            <li class="social-item" th:each="social_item : ${social}">
-              <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
-                <ion-icon th:name="${social_item.icon}"></ion-icon>
-              </a>
-            </li>
-          </ul>
+        <ul class="social-list" th:with="social = ${theme.config.index.social}">
+          <li class="social-item" th:each="social_item : ${social}">
+            <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
+              <ion-icon th:name="${social_item.icon}"></ion-icon>
+            </a>
+          </li>
+        </ul>
       </div>
     </aside>
     <div class="main-content">
@@ -175,119 +175,35 @@
         <header>
           <h2 class="h2 article-title" th:text="${theme.config.resume.title}"></h2>
         </header>
-        <section class="timeline">
+        <section class="timeline" th:each="timeline : ${theme.config.resume.timeline}"
+          th:if="${timeline.switch == true}">
           <div class="title-wrapper">
             <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
+              <ion-icon th:name="${timeline.icon}"></ion-icon>
             </div>
-            <h3 class="h3">Education</h3>
+            <h3 class="h3" th:text="${timeline.title}"></h3>
           </div>
           <ol class="timeline-list">
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">University school of the arts</h4>
-              <span>2007 — 2008</span>
-              <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p>
-            </li>
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">New york academy of art</h4>
-              <span>2006 — 2007</span>
-              <p class="timeline-text">
-                Ratione voluptatem sequi nesciunt, facere quisquams facere menda ossimus, omnis voluptas assumenda est
-                omnis..
-              </p>
-            </li>
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">High school of art and design</h4>
-              <span>2002 — 2004</span>
-              <p class="timeline-text">
-                Duis aute irure dolor in reprehenderit in voluptate, quila voluptas mag odit aut fugit, sed consequuntur
-                magni dolores
-                eos.
-              </p>
+            <li class="timeline-item" th:each="timeline_item : ${timeline.content}">
+              <h4 class="h4 timeline-item-title" th:text="${timeline_item.name}"></h4>
+              <span th:text="${timeline_item.time}"></span>
+              <p class="timeline-text" th:text="${timeline_item.text}"></p>
             </li>
           </ol>
         </section>
-        <section class="timeline">
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="book-outline"></ion-icon>
-            </div>
-            <h3 class="h3">Experience</h3>
-          </div>
-          <ol class="timeline-list">
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Creative director</h4>
-              <span>2015 — Present</span>
-              <p class="timeline-text">
-                Nemo enim ipsam voluptatem blanditiis praesentium voluptum delenit atque corrupti, quos dolores et qvuas
-                molestias
-                exceptur.
-              </p>
-            </li>
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Art director</h4>
-              <span>2013 — 2015</span>
-              <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p>
-            </li>
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Web designer</h4>
-              <span>2010 — 2013</span>
-              <p class="timeline-text">
-                Nemo enims ipsam voluptatem, blanditiis praesentium voluptum delenit atque corrupti, quos dolores et
-                quas molestias
-                exceptur.
-              </p>
-            </li>
-          </ol>
-        </section>
-        <section class="skill">
-          <h3 class="h3 skills-title">My skills</h3>
-          <ul class="skills-list content-card">
-            <li class="skills-item">
+
+        <section class="skill" th:if="${theme.config.resume.skills.switch == true}">
+          <h3 class="h3 skills-title" th:text="${theme.config.resume.skills.title}"></h3>
+          <ul class="skills-list content-card" th:with="skills = ${theme.config.resume.skills.content}">
+            <li class="skills-item" th:each="skills_list : ${skills}">
               <div class="title-wrapper">
-                <h5 class="h5">Web design</h5>
-                <data value="80">80%</data>
+                <h5 class="h5" th:text="${skills_list.name}"></h5>
+                <data th:value="${skills_list.num}" th:text="${skills_list.num} + '%'"></data>
               </div>
               <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 80%;"></div>
+                <div class="skill-progress-fill" th:style="'width: ' + ${skills_list.num} + '%'"></div>
               </div>
             </li>
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">Graphic design</h5>
-                <data value="70">70%</data>
-              </div>
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 70%;"></div>
-              </div>
-            </li>
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">Branding</h5>
-                <data value="90">90%</data>
-              </div>
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 90%;"></div>
-              </div>
-            </li>
-            <li class="skills-item">
-              <div class="title-wrapper">
-                <h5 class="h5">WordPress</h5>
-                <data value="50">50%</data>
-              </div>
-              <div class="skill-progress-bg">
-                <div class="skill-progress-fill" style="width: 50%;"></div>
-              </div>
-            </li>
-          </ul>
         </section>
       </article>
       <article th:class="${theme.config.nav.default_nav == '分类'} ? 'portfolio active' : 'portfolio'" data-page="分类">

@@ -283,7 +283,8 @@ spec:
                   height: 50px
                   language: html
                   label: 简介
-        - $formkit: repeater
+
+        - $formkit: group
           name: skills
           label: 技能
           children:
@@ -293,7 +294,7 @@ spec:
               value: true
             - $formkit: text
               name: title
-              label: 名称
+              label: 标题
               value: "技能"
             - $formkit: repeater
               name: content
@@ -306,6 +307,7 @@ spec:
                 - $formkit: text
                   name: num
                   label: 百分比
+    
 
     - group: contact
       label: 联系页
