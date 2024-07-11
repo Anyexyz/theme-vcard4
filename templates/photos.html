@@ -73,17 +73,12 @@
             </li>
           </ul>
 
-          <div th:if="${photos.hasPrevious()} or ${photos.hasNext()}"
-            class="animated fadeIn flex justify-between font-bold">
-            <a th:if="${photos.hasPrevious()}" th:href="@{${photos.prevUrl}}"
-              class="inline-flex items-center gap-1 border-b-2 border-b-transparent text-sm text-base-content/90 hover:border-base-content hover:text-base-content">
-              <i class="i-ri-arrow-left-line inline-block"></i>
+          <div th:if="${photos.hasPrevious()} or ${photos.hasNext()}">
+            <a th:if="${photos.hasPrevious()}" th:href="@{${photos.prevUrl}}">
               上一页
             </a>
-            <a th:if="${photos.hasNext()}" th:href="@{${photos.nextUrl}}"
-              class="inline-flex items-center gap-1 border-b-2 border-b-transparent text-sm text-base-content/90 hover:border-base-content hover:text-base-content">
+            <a th:if="${photos.hasNext()}" th:href="@{${photos.nextUrl}}">
               下一页
-              <i class="i-ri-arrow-right-line inline-block"></i>
             </a>
           </div>
 
