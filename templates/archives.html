@@ -1,26 +1,66 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <th:block th:each="archive : ${archives.items}">
-      <h1 th:text="${archive.year}"></h1>
-      <ul class="listing">
-        <th:block th:each="month : ${archive.months}">
-          <li th:each="post : ${month.posts}">
-            <a
-              th:href="@{${post.status.permalink}}"
-              th:title="${post.spec.title}"
-              th:text="${post.spec.title}"
-            ></a>
-          </li>
-        </th:block>
-      </ul>
-    </th:block>
-    <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">
-      上一页
-    </a>
-    <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="|时间线 - ${site.title}|"></title>
+  <link rel="shortcut icon" th:href="${singlePage.spec.title}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <aside th:replace="modules/sidebar.html"></aside>
+
+    <div class="main-content">
+
+      <nav th:replace="modules/navbar.html"></nav>
+
+      <article class="blog active" data-page="">
+        <header>
+          <h2 class="h2 article-title">时间线</h2>
+        </header>
+
+        <section class="timeline" th:each="archive : ${archives.items}">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="hourglass-outline"></ion-icon>
+            </div>
+            <h3 class="h3" th:text="${archive.year}"></h3>
+          </div>
+          <ol class="timeline-list">
+            <th:block th:each="month : ${archive.months}">
+              <th:block th:each="post : ${month.posts}">
+                <li class="timeline-item"
+                  th:attr="onclick='window.open(\'' + ${post.status.permalink} + '\', \'_blank\')'">
+                  <h4 class="h4 timeline-item-title" th:text="${post.spec.title}"></h4>
+                  <p class="timeline-text" th:text="${#dates.format(post.spec.publishTime,'MM月dd日')}"></p>
+                </li>
+              </th:block>
+            </th:block>
+          </ol>
+
+        </section>
+
+
+        <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">上一页</a>
+        <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
 </html>

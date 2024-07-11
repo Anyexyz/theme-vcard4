@@ -16,7 +16,7 @@
 <body>
   <main>
     <aside th:replace="modules/sidebar.html"></aside>
-    
+
     <div class="main-content">
       <nav th:replace="modules/navbar.html"></nav>
 
@@ -34,7 +34,8 @@
         <section class="service" th:if="${theme.config.about.about_what.switch==true}">
           <h3 class="h3 service-title" th:text="${theme.config.about.about_what.title}"></h3>
           <ul class="service-list" th:with="project = ${theme.config.about.about_what.content}">
-            <li class="service-item" th:each="project_list : ${project}" th:attr="onclick='window.open(\'' + ${project_list.url} + '\', \'_blank\')'">
+            <li class="service-item" th:each="project_list : ${project}"
+              th:attr="onclick='window.open(\'' + ${project_list.url} + '\', \'_blank\')'">
               <div class="service-icon-box">
                 <img th:src="${project_list.images}" th:alt="${project_list.title}" width="40">
               </div>
@@ -45,6 +46,38 @@
             </li>
           </ul>
         </section>
+
+        <section class="timeline" th:each="timeline : ${theme.config.about.timeline}"
+          th:if="${timeline.switch == true}">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon th:name="${timeline.icon}"></ion-icon>
+            </div>
+            <h3 class="h3" th:text="${timeline.title}"></h3>
+          </div>
+          <ol class="timeline-list">
+            <li class="timeline-item" th:each="timeline_item : ${timeline.content}">
+              <h4 class="h4 timeline-item-title" th:text="${timeline_item.name}"></h4>
+              <span th:text="${timeline_item.time}"></span>
+              <p class="timeline-text" th:text="${timeline_item.text}"></p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="skill" th:if="${theme.config.about.skills.switch == true}">
+          <h3 class="h3 skills-title" th:text="${theme.config.about.skills.title}"></h3>
+          <ul class="skills-list content-card" th:with="skills = ${theme.config.about.skills.content}">
+            <li class="skills-item" th:each="skills_list : ${skills}">
+              <div class="title-wrapper">
+                <h5 class="h5" th:text="${skills_list.name}"></h5>
+                <data th:value="${skills_list.num}" th:text="${skills_list.num} + '%'"></data>
+              </div>
+              <div class="skill-progress-bg">
+                <div class="skill-progress-fill" th:style="'width: ' + ${skills_list.num} + '%'"></div>
+              </div>
+            </li>
+        </section>
+
         <section class="testimonials" th:if="${theme.config.about.about_evaluate.switch==true}">
           <h3 class="h3 testimonials-title" th:text="${theme.config.about.about_evaluate.title}"></h3>
           <ul class="testimonials-list has-scrollbar" th:with="evaluate = ${theme.config.about.about_evaluate.content}">
@@ -62,26 +95,6 @@
           </ul>
         </section>
 
-        <div class="modal-container" data-modal-container>
-          <div class="overlay" data-overlay></div>
-          <section class="testimonials-modal">
-            <button class="modal-close-btn" data-modal-close-btn>
-              <ion-icon name="close-outline"></ion-icon>
-            </button>
-            <div class="modal-img-wrapper">
-              <figure class="modal-avatar-box">
-                <img src="" alt="" width="80" data-modal-img>
-              </figure>
-              <img th:src="@{/assets/images/icon-quote.svg}" alt="quote icon">
-            </div>
-            <div class="modal-content">
-              <h4 class="h3 modal-title" data-modal-title></h4>
-              <div data-modal-text>
-                <p></p>
-              </div>
-            </div>
-          </section>
-        </div>
         <section class="clients" th:if="${theme.config.about.about_clients.switch==true}">
           <h3 class="h3 clients-title" th:text="${theme.config.about.about_clients.title}"></h3>
           <ul class="clients-list has-scrollbar" th:with="clients = ${theme.config.about.about_clients.content}">
@@ -92,6 +105,7 @@
             </li>
           </ul>
         </section>
+
       </article>
 
     </div>
