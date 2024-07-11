@@ -367,7 +367,7 @@
           <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
             <li class="blog-post-item" th:each="post : ${posts.items}">
               <a th:href="${post.status.permalink}">
-                <figure class="blog-banner-box">
+                <figure class="blog-banner-box" th:if="${! #strings.isEmpty(post.spec.cover)}">
                   <img th:src="${post.spec.cover}" alt="" loading="lazy">
                 </figure>
                 <div class="blog-content">

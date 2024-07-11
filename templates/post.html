@@ -1,10 +1,140 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${post.spec.title}"></h1>
-    <article th:utext="${post.content.content}"></article>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${site.title}"></title>
+  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <aside class="sidebar" data-sidebar>
+      <div class="sidebar-info">
+        <figure class="avatar-box">
+          <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
+            th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80">
+        </figure>
+        <div class="info-content">
+          <h1 class="name" th:text="${theme.config.index.header_info.header_info_title  ?: site.title}"></h1>
+          <p class="title" th:text="${theme.config.index.header_info.header_info_subtitle ?: site.subtitle}"></p>
+        </div>
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>个人信息</span>
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+      </div>
+      <div class="sidebar-info_more">
+        <div class="separator"></div>
+        <ul class="contacts-list">
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.email != null and !theme.config.index.header_contact.email.isEmpty()}">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">邮箱</p>
+              <a th:href="'mailto:' + ${theme.config.index.header_contact.email}" class="contact-link"
+                th:text="${theme.config.index.header_contact.email}"></a>
+            </div>
+          </li>
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.phone != null and !theme.config.index.header_contact.phone.isEmpty()}">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">电话</p>
+              <a href="tel:${theme.config.index.header_contact.phone}" class="contact-link"
+                th:text="${theme.config.index.header_contact.phone}"></a>
+            </div>
+          </li>
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.birthday != null and !theme.config.index.header_contact.birthday.isEmpty()}">
+            <div class="icon-box">
+              <ion-icon name="calendar-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">生日</p>
+              <time datetime="${theme.config.index.header_contact.birthday}"
+                th:text="${theme.config.index.header_contact.birthday}"></time>
+            </div>
+          </li>
+          <li class="contact-item"
+            th:if="${theme.config.index.header_contact.Location != null and !theme.config.index.header_contact.Location.isEmpty()}">
+            <div class="icon-box">
+              <ion-icon name="location-outline"></ion-icon>
+            </div>
+            <div class="contact-info">
+              <p class="contact-title">地区</p>
+              <address th:text="${theme.config.index.header_contact.Location}"></address>
+            </div>
+          </li>
+        </ul>
+        <div class="separator"></div>
+        <ul class="social-list" th:with="social = ${theme.config.index.social}">
+          <li class="social-item" th:each="social_item : ${social}">
+            <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
+              <ion-icon th:name="${social_item.icon}"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+    <div class="main-content">
+      <article class="post active" data-page="post">
+        <header>
+          <h2 class="h2 article-title" th:text="${post.spec.title}"></h2>
+        </header>
+        <section class="blog-posts">
+          <!-- <div class="post-user">
+            <div class="user-left ">
+              <img th:if="${not #strings.isEmpty(post.owner.avatar)}" th:src="${post.owner.avatar}">
+
+              <div th:text="${post.owner.displayName}" class="user-name"></div>
+
+              <span id="publishTime" th:attr="data-value=${post.spec.publishTime}"
+                th:text="${#dates.format(post.spec.publishTime,'yyyy年MM月dd日')}"></span>
+
+              <div class="user-info">
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
+                  <g fill="none" stroke="#b85717" stroke-width="2">
+                    <path stroke-linecap="round"
+                      d="M19 11V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C17.48 5 16.92 5 15.8 5H7.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C4 6.52 4 7.08 4 8.2v5.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C5.52 17 6.08 17 7.2 17H14m-6-4h4M8 9h7" />
+                    <circle cx="18" cy="15" r="1" />
+                    <path stroke-linecap="round" d="M20 20s-.5-1-2-1s-2 1-2 1" />
+                  </g>
+                </svg>
+                <span th:text="|${post.stats?.visit ?:0}次浏览|" id="visit-counter"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
+                  <g fill="none" stroke="#e33b3b" stroke-width="2">
+                    <path
+                      d="M4 12a8 8 0 1 1 16 0v5.09c0 .848 0 1.27-.126 1.609a2 2 0 0 1-1.175 1.175C18.36 20 17.937 20 17.09 20H12a8 8 0 0 1-8-8z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 11h6m-3 4h3" />
+                  </g>
+                </svg>
+                <span th:text="|${post.stats?.comment ?:0}次评论|"></span>
+              </div>
+            </div>
+          </div> -->
+          <div th:utext="${post.content.content}" class="about-text"> </div>
+        </section>
+      </article>
+    </div>
+  </main>
+  <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>
+
+<!-- <footer>
+  <halo:footer />
+</footer> -->
+
 </html>
