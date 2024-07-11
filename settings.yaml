@@ -157,7 +157,7 @@ spec:
             - $formkit: checkbox
               name: switch
               label: 是否显示此模块
-              value: true
+              value: false
             - $formkit: text
               name: title
               label: 标题
@@ -260,12 +260,3 @@ spec:
                 - $formkit: attachment
                   name: images
                   label: Logo
-    
-    - group: menu_bar
-      label: 菜单栏
-      help: 选择主题使用的菜单栏
-      formSchema:
-      - $formkit: menuRadio
-        name: menu
-        label: 菜单
-        value: ""

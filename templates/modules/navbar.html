@@ -1,0 +1,17 @@
+<nav class="navbar" th:with="menu = ${menuFinder.getPrimary()}">
+
+  <ul class="navbar-list" th:with="menuItems = ${menu.menuItems}">
+
+    <li class="navbar-item" th:each="menuItem : ${menuItems}">
+      <a
+        class="navbar-link"
+        th:text="${menuItem.status.displayName}"
+        th:href="${menuItem.status.href}"
+        th:target="${menuItem.spec.target?.value}"
+      >
+    </a>
+    </li>
+
+  </ul>
+
+</nav>

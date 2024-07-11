@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${site.title}"></title>
+    <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+
+        <aside th:replace="modules/sidebar.html"></aside>
+
+        <div class="main-content">
+
+            <nav th:replace="modules/navbar.html"></nav>
+
+            <article class="links active" data-page="友链">
+                <header>
+                    <h2 class="h2 article-title">友链</h2>
+                </header>
+                
+                <section class="service" th:each="group : ${groups}">
+                    <h3 class="h3 service-title" th:text="${group.spec.displayName}"></h3>
+                    <ul class="service-list">
+                        <li class="service-item" th:each="link : ${group.links}" th:attr="onclick='window.open(\'' + ${link.spec.url} + '\', \'_blank\')'">
+                            <div class="service-icon-box">
+                                <img th:src="${link.spec.logo}" th:alt="${link.spec.displayName}" width="40">
+                            </div>
+                            <div class="service-content-box">
+                                <h4 class="h4 service-item-title" th:text="${link.spec.displayName}"></h4>
+                                <p class="service-item-text" th:text="${link.spec.description}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+            </article>
+
+        </div>
+
+    </main>
+
+    <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${site.title}"></title>
+  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+
+    <aside th:replace="modules/sidebar.html"></aside>
+
+    <div class="main-content">
+
+      <nav th:replace="modules/navbar.html"></nav>
+
+      <article class="portfolio active" data-page="图库">
+        <header>
+          <h2 class="h2 article-title" th:text="${title}"></h2>
+        </header>
+
+        <section class="projects">
+          <ul class="filter-list">
+            <li class="filter-item">
+              <a href="/photos" data-filter-btn th:classappend="${#lists.isEmpty(param.group) ? 'active' : ''}"> 全部 </a>
+            </li>
+            <li class="filter-item" th:each="group : ${photoFinder.groupBy()}">
+              <a th:href="@{|/photos?group=${group.metadata.name}|}"
+                th:classappend="${#lists.contains(param.group, group.metadata.name) ? 'active' : ''}"
+                th:text="${group.spec.displayName}">
+              </a>
+            </li>
+          </ul>
+
+          <div class="filter-select-box">
+            <button class="filter-select" data-select>
+              <div class="select-value" data-selecct-value>选择类别</div>
+              <div class="select-icon">
+                <ion-icon name="chevron-down"></ion-icon>
+              </div>
+            </button>
+            <ul class="select-list">
+              <li class="select-item">
+                <a href="/photos" data-select-btn th:classappend="${#lists.isEmpty(param.group) ? 'active' : ''}"> 全部
+                </a>
+              </li>
+              <li th:each="group : ${photoFinder.groupBy()}">
+                <a class="select-item" data-select-item th:href="@{|/photos?group=${group.metadata.name}|}"
+                  th:classappend="${#lists.contains(param.group, group.metadata.name) ? 'active' : ''}"
+                  th:text="${group.spec.displayName}">
+                </a>
+              </li>
+            </ul>
+          </div>
+          <ul class="project-list">
+            <li class="project-item  active" data-filter-item th:each="photo : ${photos.items}">
+              <a id="photos">
+                <figure class="project-img">
+                  <div class="project-item-icon-box">
+                    <ion-icon name="eye-outline"></ion-icon>
+                  </div>
+                  <img th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}" loading="lazy">
+                </figure>
+              </a>
+            </li>
+          </ul>
+
+          <div th:if="${photos.hasPrevious()} or ${photos.hasNext()}"
+            class="animated fadeIn flex justify-between font-bold">
+            <a th:if="${photos.hasPrevious()}" th:href="@{${photos.prevUrl}}"
+              class="inline-flex items-center gap-1 border-b-2 border-b-transparent text-sm text-base-content/90 hover:border-base-content hover:text-base-content">
+              <i class="i-ri-arrow-left-line inline-block"></i>
+              上一页
+            </a>
+            <a th:if="${photos.hasNext()}" th:href="@{${photos.nextUrl}}"
+              class="inline-flex items-center gap-1 border-b-2 border-b-transparent text-sm text-base-content/90 hover:border-base-content hover:text-base-content">
+              下一页
+              <i class="i-ri-arrow-right-line inline-block"></i>
+            </a>
+          </div>
+
+        </section>
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

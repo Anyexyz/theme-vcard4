@@ -1,0 +1,77 @@
+<aside class="sidebar" data-sidebar>
+
+    <div class="sidebar-info">
+        <figure class="avatar-box">
+            <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
+                th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80">
+        </figure>
+        <div class="info-content">
+            <h1 class="name" th:text="${theme.config.index.header_info.header_info_title  ?: site.title}"></h1>
+            <p class="title" th:text="${theme.config.index.header_info.header_info_subtitle ?: site.subtitle}"></p>
+        </div>
+        <button class="info_more-btn" data-sidebar-btn>
+            <span>个人信息</span>
+            <ion-icon name="chevron-down"></ion-icon>
+        </button>
+    </div>
+
+    <div class="sidebar-info_more">
+        <div class="separator"></div>
+        <ul class="contacts-list">
+            <li class="contact-item"
+                th:if="${theme.config.index.header_contact.email != null and !theme.config.index.header_contact.email.isEmpty()}">
+                <div class="icon-box">
+                    <ion-icon name="mail-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                    <p class="contact-title">邮箱</p>
+                    <a th:href="'mailto:' + ${theme.config.index.header_contact.email}" class="contact-link"
+                        th:text="${theme.config.index.header_contact.email}"></a>
+                </div>
+            </li>
+            <li class="contact-item"
+                th:if="${theme.config.index.header_contact.phone != null and !theme.config.index.header_contact.phone.isEmpty()}">
+                <div class="icon-box">
+                    <ion-icon name="phone-portrait-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                    <p class="contact-title">电话</p>
+                    <a href="tel:${theme.config.index.header_contact.phone}" class="contact-link"
+                        th:text="${theme.config.index.header_contact.phone}"></a>
+                </div>
+            </li>
+            <li class="contact-item"
+                th:if="${theme.config.index.header_contact.birthday != null and !theme.config.index.header_contact.birthday.isEmpty()}">
+                <div class="icon-box">
+                    <ion-icon name="calendar-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                    <p class="contact-title">生日</p>
+                    <time datetime="${theme.config.index.header_contact.birthday}"
+                        th:text="${theme.config.index.header_contact.birthday}"></time>
+                </div>
+            </li>
+            <li class="contact-item"
+                th:if="${theme.config.index.header_contact.Location != null and !theme.config.index.header_contact.Location.isEmpty()}">
+                <div class="icon-box">
+                    <ion-icon name="location-outline"></ion-icon>
+                </div>
+                <div class="contact-info">
+                    <p class="contact-title">地区</p>
+                    <address th:text="${theme.config.index.header_contact.Location}"></address>
+                </div>
+            </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list" th:with="social = ${theme.config.index.social}">
+            <li class="social-item" th:each="social_item : ${social}">
+                <a class="social-link" th:href="${social_item.url}" target="_blank" th:title="${social_item.name}">
+                    <ion-icon th:name="${social_item.icon}"></ion-icon>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</aside>

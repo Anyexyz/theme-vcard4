@@ -1,4 +1,4 @@
-# Vcard4 简历式主题
+# vCard4 响应式个人作品集主题
 
 vCard4 是一个响应式的个人作品集主题，可适配所有设备，移植于 [codewithsadee/vcard-personal-portfolio](https://github.com/codewithsadee/vcard-personal-portfolio/)
 
@@ -21,13 +21,14 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 ---
 
 ## 插件支持
-
+- [x] [链接管理](https://www.halo.run/store/apps/app-hfbQg)
+- [x] [图库管理](https://github.com/halo-sigs/plugin-photos)
 - [x] [评论组件](https://www.halo.run/store/apps/app-YXyaD)
 - [x] [RSS](https://www.halo.run/store/apps/app-KhIVw)
 
 ## 🏭 贡献
 
-> 如果你想帮助完善 `Vcard` 主题，请：
+> 如果你想帮助完善 `vCard4` 主题，请：
 
 - 点 `star`
 - 提 `issue`
