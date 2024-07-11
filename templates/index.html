@@ -378,7 +378,8 @@
                       th:text="${category.spec.displayName}">
                     </p>
                     <span class="dot"></span>
-                    <time th:datetime="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}" th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
+                    <time th:datetime="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"
+                      th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
                   </div>
                   <h3 class="h3 blog-item-title" th:text="${post.spec.title}"></h3>
                   <p class="blog-text" th:text="${post.status.excerpt}"></p>
@@ -411,8 +412,8 @@
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 
-<footer>
+<!-- <footer>
   <halo:footer />
-</footer>
+</footer> -->
 
 </html>
