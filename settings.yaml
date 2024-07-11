@@ -90,48 +90,6 @@ spec:
               label: 链接
               validation: "required"
 
-    - group: nav
-      label: 菜单栏
-      formSchema:
-        - $formkit: list
-          name: nav_list
-          label: 菜单列表
-          help: 由于本主题的独特设计, 菜单栏不受 Halo 菜单管理器控制, 请在此处选择启用
-          value: ["关于","简历","图库","博客","联系我"]
-          addButton: false
-          itemType: object
-          children:
-            - $formkit: select
-              index: "$index"
-              name: menu
-              options:
-                - label: 关于
-                  value: 关于
-                - label: 简历
-                  value: 简历
-                - label: 图库
-                  value: 图库
-                - label: 博客
-                  value: 博客
-                - label: 联系我
-                  value: 联系我
-        - $formkit: radio
-          name: default_nav
-          label: 默认菜单
-          help: 站点默认显示的菜单
-          value: 关于
-          options:
-            - label: 关于
-              value: 关于
-            - label: 简历
-              value: 简历
-            - label: 图库
-              value: 图库
-            - label: 博客
-              value: 博客
-            - label: 联系我
-              value: 联系我
-
     - group: about
       label: 关于页
       formSchema:
@@ -182,12 +140,71 @@ spec:
                 - $formkit: attachment
                   name: images
                   label: 图标
+                - $formkit: text
+                  name: url
+                  label: 链接
                 - $formkit: code
                   name: text
                   value: ""
                   height: 60px
                   language: html
-                  label: 描述     
+                  label: 描述
+        - $formkit: repeater
+          name: timeline
+          label: 时间线
+          value: [{"title":"教育经历","icon":"book-outline","content":[]},{"title":"工作经历","icon":"briefcase-outline","content":[]}]
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: true
+            - $formkit: text
+              name: title
+              label: 标题
+            - $formkit: text
+              name: icon
+              label: 图标
+              help: 请填写图标名称, 可参考 https://ionic.io/ionicons
+            - $formkit: repeater
+              name: content
+              label: 节点
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: time
+                  label: 时间
+                - $formkit: code
+                  name: text
+                  value: ""
+                  height: 50px
+                  language: html
+                  label: 简介
+        - $formkit: group
+          name: skills
+          label: 技能
+          children:
+            - $formkit: checkbox
+              name: switch
+              label: 是否显示此模块
+              value: true
+            - $formkit: text
+              name: title
+              label: 标题
+              value: "技能"
+            - $formkit: repeater
+              name: content
+              label: 新增内容
+              value: [ ]
+              children:
+                - $formkit: text
+                  name: name
+                  label: 名称
+                - $formkit: text
+                  name: num
+                  label: 百分比
         - $formkit: group
           name: about_evaluate
           label: 评价
@@ -244,82 +261,11 @@ spec:
                   name: images
                   label: Logo
     
-    - group: resume
-      label: 简历页
+    - group: menu_bar
+      label: 菜单栏
+      help: 选择主题使用的菜单栏
       formSchema:
-        - $formkit: text
-          name: title
-          label: 标题
-          value: "简历"
-        - $formkit: repeater
-          name: timeline
-          label: 时间线
-          value: [{"title":"教育经历","icon":"book-outline","content":[]},{"title":"工作经历","icon":"briefcase-outline","content":[]}]
-          children:
-            - $formkit: checkbox
-              name: switch
-              label: 是否显示此模块
-              value: true
-            - $formkit: text
-              name: title
-              label: 标题
-            - $formkit: text
-              name: icon
-              label: 图标
-            - $formkit: repeater
-              name: content
-              label: 节点
-              value: [ ]
-              children:
-                - $formkit: text
-                  name: name
-                  label: 名称
-                - $formkit: text
-                  name: time
-                  label: 时间
-                - $formkit: code
-                  name: text
-                  value: ""
-                  height: 50px
-                  language: html
-                  label: 简介
-
-        - $formkit: group
-          name: skills
-          label: 技能
-          children:
-            - $formkit: checkbox
-              name: switch
-              label: 是否显示此模块
-              value: true
-            - $formkit: text
-              name: title
-              label: 标题
-              value: "技能"
-            - $formkit: repeater
-              name: content
-              label: 新增内容
-              value: [ ]
-              children:
-                - $formkit: text
-                  name: name
-                  label: 名称
-                - $formkit: text
-                  name: num
-                  label: 百分比
-    
-
-    - group: contact
-      label: 联系页
-      formSchema:
-        - $formkit: repeater
-          name: content
-          label: 内容
-          value: [ ]
-          children: 
-            - $formkit: code
-              name: text
-              value: ""
-              height: 200px
-              language: html
-              label: 内容
+      - $formkit: menuRadio
+        name: menu
+        label: 菜单
+        value: ""

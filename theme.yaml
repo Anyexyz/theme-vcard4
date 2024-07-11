@@ -19,3 +19,9 @@ spec:
   license:
     - name: "GPL-3.0"
       url: "https://github.com/Anyexyz/theme-vcard4/blob/main/LICENSE"
+  customTemplates:
+    page:
+      - name: 关于
+        description: 关于页面
+        screenshot: 
+        file: about.html
