@@ -2219,10 +2219,15 @@ textarea.form-input::-webkit-resizer {
   margin-bottom: 1rem;
 }
 
-.post-content blockquote p {
-  margin: 0;
+.post-content blockquote span {
+  display: inline;
 }
 
 .post-comment {
   margin-top: 50px;
+}
+
+code,
+hr {
+  margin-bottom: 10px;
 }
