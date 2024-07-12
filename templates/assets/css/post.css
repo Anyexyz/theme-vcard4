@@ -1,0 +1,32 @@
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+}
+.post-content a {
+  display: inline;
+}
+.post-content ul {
+  padding-inline-start: 30px;
+}
+.post-content li {
+  list-style-type: disc;
+}
+.post-content p {
+  margin-bottom: 1rem;
+}
+.post-content img {
+  max-width: 100%;
+}
+.post-content blockquote {
+  border-left: 0.25em solid #d0d7de;
+  padding: 0 1em;
+  margin-bottom: 1rem;
+}
+.post-content blockquote p {
+  margin: 0;
+}

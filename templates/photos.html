@@ -62,14 +62,9 @@
           </div>
           <ul class="project-list">
             <li class="project-item  active" data-filter-item th:each="photo : ${photos.items}">
-              <a id="photos">
-                <figure class="project-img">
-                  <div class="project-item-icon-box">
-                    <ion-icon name="eye-outline"></ion-icon>
-                  </div>
-                  <img th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}" loading="lazy">
-                </figure>
-              </a>
+              <figure class="project-img">
+                <img th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}">
+              </figure>
             </li>
           </ul>
 

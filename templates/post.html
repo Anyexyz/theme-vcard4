@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/assets/css/post.css?v={version}(version=${theme.spec.version})}">
 </head>
 
 <body>
@@ -25,38 +26,13 @@
           <h2 class="h2 article-title" th:text="${post.spec.title}"></h2>
         </header>
         <section class="blog-posts">
-          <!-- <div class="post-user">
-            <div class="user-left ">
-              <img th:if="${not #strings.isEmpty(post.owner.avatar)}" th:src="${post.owner.avatar}">
-
-              <div th:text="${post.owner.displayName}" class="user-name"></div>
-
-              <span id="publishTime" th:attr="data-value=${post.spec.publishTime}"
-                th:text="${#dates.format(post.spec.publishTime,'yyyy年MM月dd日')}"></span>
-
-              <div class="user-info">
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
-                  <g fill="none" stroke="#b85717" stroke-width="2">
-                    <path stroke-linecap="round"
-                      d="M19 11V8.2c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C17.48 5 16.92 5 15.8 5H7.2c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C4 6.52 4 7.08 4 8.2v5.6c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874C5.52 17 6.08 17 7.2 17H14m-6-4h4M8 9h7" />
-                    <circle cx="18" cy="15" r="1" />
-                    <path stroke-linecap="round" d="M20 20s-.5-1-2-1s-2 1-2 1" />
-                  </g>
-                </svg>
-                <span th:text="|${post.stats?.visit ?:0}次浏览|" id="visit-counter"></span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24">
-                  <g fill="none" stroke="#e33b3b" stroke-width="2">
-                    <path
-                      d="M4 12a8 8 0 1 1 16 0v5.09c0 .848 0 1.27-.126 1.609a2 2 0 0 1-1.175 1.175C18.36 20 17.937 20 17.09 20H12a8 8 0 0 1-8-8z" />
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 11h6m-3 4h3" />
-                  </g>
-                </svg>
-                <span th:text="|${post.stats?.comment ?:0}次评论|"></span>
-              </div>
-            </div>
-          </div> -->
-          <div th:utext="${post.content.content}" class="about-text"> </div>
+          <div th:utext="${post.content.content}" class="post-content"> </div>
         </section>
+        <!-- Comment -->
+        <div class="post-comment">
+          <h2 class="h3 article-title">评论</h2>
+          <halo:comment group="content.halo.run" kind="Post" th:attr="name=${post.metadata.name}" />
+        </div>
       </article>
     </div>
   </main>

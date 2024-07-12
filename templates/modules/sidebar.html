@@ -2,8 +2,11 @@
 
     <div class="sidebar-info">
         <figure class="avatar-box">
-            <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
-                th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80">
+            <a th:href="${site.url}">
+                <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
+                    th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80" style="border-radius: 30px;
+    object-fit: cover;">
+            </a>
         </figure>
         <div class="info-content">
             <h1 class="name" th:text="${theme.config.index.header_info.header_info_title  ?: site.title}"></h1>

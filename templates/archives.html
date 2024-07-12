@@ -36,10 +36,11 @@
           <ol class="timeline-list">
             <th:block th:each="month : ${archive.months}">
               <th:block th:each="post : ${month.posts}">
-                <li class="timeline-item"
-                  th:attr="onclick='window.open(\'' + ${post.status.permalink} + '\', \'_blank\')'">
-                  <h4 class="h4 timeline-item-title" th:text="${post.spec.title}"></h4>
-                  <p class="timeline-text" th:text="${#dates.format(post.spec.publishTime,'MM月dd日')}"></p>
+                <li class="timeline-item">
+                  <a th:href="${post.status.permalink}">
+                    <h4 class="h4 timeline-item-title" th:text="${post.spec.title}"></h4>
+                    <p class="timeline-text" th:text="${#dates.format(post.spec.publishTime,'MM月dd日')}"></p>
+                  </a>
                 </li>
               </th:block>
             </th:block>
@@ -48,9 +49,7 @@
         </section>
 
 
-        <a th:if="${archives.hasPrevious()}" th:href="@{${archives.prevUrl}}">上一页</a>
-        <a th:if="${archives.hasNext()}" th:href="@{${archives.nextUrl}}">下一页</a>
-
+        <div th:replace="~{modules/pagination :: page('/archives',${archives})}"></div>
       </article>
 
     </div>

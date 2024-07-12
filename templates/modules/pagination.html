@@ -1,0 +1,59 @@
+<nav id="pagination" th:fragment="page(path,pageInfo)" class="mt-3 mt-md-4" style="width: 100%;">
+    <div class="pagination justify-content-center">
+        <!-- 翻页按钮 -->
+        <a class="icon-box prev" rel="prev" th:if="${pageInfo.hasPrevious}" th:href="${pageInfo.prevUrl}"
+            data-pjax-state="">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </a>
+        <!-- 页码按钮 -->
+        <th:block th:if="${pageInfo.page > 3}">
+            <a class="icon-box" th:href="${path+'/page/1'}" th:text="1"></a>
+            <span class="space" th:if="${pageInfo.page != 4}">…</span>
+        </th:block>
+        <th:block th:each="index:${#numbers.sequence(pageInfo.page-2,pageInfo.page+2)}">
+            <span class="icon-box current" th:if="${pageInfo.page} == ${index}" th:text="${pageInfo.page}"></span>
+            <a class="icon-box" th:unless="${pageInfo.page == index}"
+                th:if="${index > 0 && index <= pageInfo.totalPages}" th:href="${path+'/page/'+index}"
+                th:text="${index}"></a>
+        </th:block>
+        <th:block th:if="${pageInfo.totalPages - pageInfo.page > 2}">
+            <span class="space" th:if="${pageInfo.totalPages - pageInfo.page != 3}">…</span>
+            <a class="icon-box" th:href="${path+'/page/'+pageInfo.totalPages}" th:text="${pageInfo.totalPages}"></a>
+        </th:block>
+        <a class="icon-box next" rel="next" th:if="${pageInfo.hasNext}" th:href="${pageInfo.nextUrl}"
+            data-pjax-state="">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </a>
+    </div>
+</nav>
+<nav id="pagination" th:fragment="page1(path,pageInfo)" class="mt-3 mt-md-4" style="width: 100%;"
+    th:with="post_page = ${pageInfo.page},permalink = ${path+'?page='}">
+
+    <div class="pagination">
+        <!-- 翻页按钮 -->
+        <a class="extend prev" rel="prev" th:if="${pageInfo.hasPrevious}" th:href="|${permalink}${post_page-1}|"
+            data-pjax-state="">
+            <i class="iconfont icon-chevron-left"></i>
+        </a>
+        <!-- 页码按钮 -->
+        <th:block th:if="${pageInfo.page > 3}">
+            <a class="page-number" th:href="${permalink+'1'}" th:text="1"></a>
+            <span class="space" th:if="${pageInfo.page != 4}">…
+            </span>
+        </th:block>
+        <th:block th:each="index:${#numbers.sequence(pageInfo.page-2,pageInfo.page+2)}">
+            <span class="page-number current" th:if="${pageInfo.page} == ${index}" th:text="${pageInfo.page}"></span>
+            <a class="page-number" th:unless="${pageInfo.page == index}"
+                th:if="${index > 0 && index <= pageInfo.totalPages}" th:href="${permalink+index}"
+                th:text="${index}"></a>
+        </th:block>
+        <th:block th:if="${pageInfo.totalPages - pageInfo.page > 2}">
+            <span class="space" th:if="${pageInfo.totalPages - pageInfo.page != 3}">…</span>
+            <a class="page-number" th:href="${permalink+pageInfo.totalPages}" th:text="${pageInfo.totalPages}"></a>
+        </th:block>
+        <a class="extend next" rel="next" th:if="${pageInfo.hasNext}" th:href="|${permalink}${post_page+1}"
+            data-pjax-state="">
+            <i class="iconfont icon-chevron-right"></i>
+        </a>
+    </div>
+</nav>

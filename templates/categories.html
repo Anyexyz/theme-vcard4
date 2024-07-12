@@ -1,17 +1,66 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1>分类目录</h1>
-    <ul>
-      <li th:each="category : ${categories}">
-        <a
-          th:href="@{${category.status.permalink}}"
-          th:text="${category.spec.displayName}"
-        ></a>
-      </li>
-    </ul>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="|分类归档 - ${site.title}|"></title>
+  <link rel="shortcut icon" th:href="${singlePage.spec.title}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <aside th:replace="modules/sidebar.html"></aside>
+
+    <div class="main-content">
+
+      <nav th:replace="modules/navbar.html"></nav>
+
+      <article class="blog active" data-page="">
+        <header>
+          <h2 class="h2 article-title">分类归档</h2>
+        </header>
+
+        <section class="blog-posts">
+          <ul class="blog-posts-list">
+            <li class="blog-post-item" th:each="category : ${categories}">
+              <a th:href="@{${category.status.permalink}}">
+                <div class="blog-content">
+                  <h3 class="h3 blog-item-title" th:text="${category.spec.displayName}"></h3>
+                </div>
+              </a>
+            </li>
+            <th:block th:if="${not #lists.isEmpty(category.children)}" th:each="category : ${categories}">
+              <li class="blog-post-item" th:each="child : ${category.children}">
+                <a th:href="@{${child.status.permalink}}">
+                  <div class="blog-content">
+                    <h3 class="h3 blog-item-title" th:text="${child.spec.displayName}"></h3>
+                  </div>
+                </a>
+              </li>
+            </th:block>
+
+          </ul>
+
+          </th:block>
+        </section>
+
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
 </html>

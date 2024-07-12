@@ -1,19 +1,68 @@
 <!DOCTYPE html>
-<html
-  xmlns:th="https://www.thymeleaf.org"
-  th:replace="~{layout :: html(head = null,content = ~{::content})}"
->
-  <th:block th:fragment="content">
-    <h1 th:text="${category.spec.displayName}"></h1>
-    <ul>
-      <li th:each="post : ${posts.items}">
-        <a
-          th:href="@{${post.status.permalink}}"
-          th:text="${post.spec.title}"
-        ></a>
-      </li>
-    </ul>
-    <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
-    <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
-  </th:block>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="|${category.spec.displayName} - ${site.title}|"></title>
+  <link rel="shortcut icon" th:href="${singlePage.spec.title}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <main>
+    <aside th:replace="modules/sidebar.html"></aside>
+
+    <div class="main-content">
+
+      <nav th:replace="modules/navbar.html"></nav>
+
+      <article class="blog active" data-page="">
+        <header>
+          <h2 class="h2 article-title" th:text="${category.spec.displayName}"></h2>
+        </header>
+
+        <section class="blog-posts">
+          <ul class="blog-posts-list">
+            <li class="blog-post-item" th:each="post : ${posts.items}">
+              <a th:href="${post.status.permalink}">
+                <figure class="blog-banner-box">
+                  <img th:src="${post.spec.cover ?: #theme.assets('/images/halo.jpg')}" alt="" loading="lazy">
+                </figure>
+                <div class="blog-content">
+                  <div class="blog-meta">
+                    <p class="blog-category" th:if="${! #strings.isEmpty(post.spec.categories)}"
+                      th:each="category_name : ${post.spec.categories}"
+                      th:with="category = ${categoryFinder.getByName(category_name)}"
+                      th:text="${category.spec.displayName}">
+                    </p>
+                    <span class="dot"></span>
+                    <time th:datetime="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"
+                      th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
+                  </div>
+                  <h3 class="h3 blog-item-title" th:text="${post.spec.title}"></h3>
+                  <p class="blog-text" th:text="${post.status.excerpt}"></p>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </section>
+
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
 </html>
