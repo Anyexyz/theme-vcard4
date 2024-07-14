@@ -68,13 +68,8 @@
             </li>
           </ul>
 
-          <div th:if="${photos.hasPrevious()} or ${photos.hasNext()}">
-            <a th:if="${photos.hasPrevious()}" th:href="@{${photos.prevUrl}}">
-              上一页
-            </a>
-            <a th:if="${photos.hasNext()}" th:href="@{${photos.nextUrl}}">
-              下一页
-            </a>
+          <div class="index-paination">
+            <div th:replace="~{modules/pagination :: page('',${photos})}"></div>
           </div>
 
         </section>
