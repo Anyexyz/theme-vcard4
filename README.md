@@ -37,9 +37,17 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 
 ## 🙆‍♂️ 感谢
 
+**特别致谢**：
+
+- [無.Flac](https://github.com/wflac/)
+- [Ryan Wang](https://github.com/ruibaby)
+- [困困鱼](https://github.com/chengzhongxue)
+
+
 在此感谢以下项目提供的支持：
 
-- [codewithsadee/vcard-personal-portfolio](https://github.com/codewithsadee/vcard-personal-portfolio/)
+- [vcard-personal-portfolio](https://github.com/codewithsadee/vcard-personal-portfolio/)
+- [theme-vcard](https://github.com/wflac/theme-vcard)
 - [Halo](https://halo.run)
 - [theme-starter](https://github.com/halo-dev/theme-starter)
 - ...
