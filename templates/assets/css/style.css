@@ -2231,3 +2231,7 @@ code,
 hr {
   margin-bottom: 10px;
 }
+
+.language-bash span {
+  display:inline !important;
+}
