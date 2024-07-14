@@ -117,6 +117,7 @@
 
 a {
   text-decoration: none;
+  color: var(--orange-yellow-crayola);
 }
 
 li {
@@ -2238,4 +2239,61 @@ textarea.form-input::-webkit-resizer {
 code,
 hr {
   margin-bottom: 10px;
+}
+
+footer {
+  background-color: #1a1a1a;
+  color: #D6D6D6;
+  padding: 20px 0;
+  text-align: center;
+}
+
+footer a {
+  color: #D6D6D6;
+}
+
+footer .footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .footer-row {
+  width: 100%;
+  margin: 5px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer .beian,
+footer .gongan,
+footer .copyright,
+footer .halo-powered {
+  display: inline-flex;
+  align-items: center;
+}
+
+footer .beian a,
+footer .gongan a,
+footer .copyright a {
+  text-decoration: none;
+}
+
+footer .beian a:hover,
+footer .gongan a:hover,
+footer .copyright a:hover {
+  text-decoration: underline;
+}
+
+footer .gongan img {
+  height: 16px;
+  margin-right: 5px;
+}
+
+footer .copyright a {
+  margin-left: 0.25em;  /* 可以根据需要调整这个值 */
 }

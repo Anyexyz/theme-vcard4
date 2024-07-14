@@ -16,4 +16,7 @@
     <a th:if="${posts.hasPrevious()}" th:href="@{${posts.prevUrl}}">上一页</a>
     <a th:if="${posts.hasNext()}" th:href="@{${posts.nextUrl}}">下一页</a>
   </th:block>
+
+  <footer th:replace="modules/footer.html"></footer>
+
 </html>

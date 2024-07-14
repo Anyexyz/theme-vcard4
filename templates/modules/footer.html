@@ -1,0 +1,29 @@
+<footer>
+    <div class="footer-container">
+        <div class="footer-row">
+            <span class="beian" th:if="${not #strings.isEmpty(theme.config.beian.icp_text)}">
+                <a href="https://beian.miit.gov.cn/" target="_blank" th:href="${theme.config.beian.icp_link}"
+                    th:text="${theme.config.beian.icp_text}"></a>
+            </span>
+        </div>
+        <div class="footer-row">
+            <span class="gongan" th:if="${not #strings.isEmpty(theme.config.beian.gongan_text)}">
+                <img th:src="@{/assets/images/gongan_beian.webp}" alt="gongan_beian" />
+                <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank"
+                    th:href="${theme.config.beian.gongan_link}" th:text="${theme.config.beian.gongan_text}"></a>
+            </span>
+        </div>
+        <div class="footer-row">
+            <span class="copyright">©
+                <th:block th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy')}" />
+                <a href="/" th:text="${site.title}"></a>. All Rights Reserved. Powered by 
+                <a href="https://halo.run" target="_blank">Halo</a>.
+            </span>
+        </div>
+        <div class="footer-row">
+            <span class="halo-powered">
+                <halo:footer />
+            </span>
+        </div>
+    </div>
+</footer>
