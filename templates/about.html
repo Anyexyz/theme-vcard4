@@ -25,7 +25,7 @@
           <h2 class="h2 article-title" th:text="${theme.config.about.title}"></h2>
         </header>
 
-        <section class="about-text" th:if="${theme.config.about.about_me.switch==true}">
+        <section class="about-text post-content" th:if="${theme.config.about.about_me.switch==true}">
           <th:block th:with="content = ${theme.config.about.about_me.content}">
             <p th:utext="${content_list.text}" th:each="content_list : ${content}"></p>
           </th:block>
