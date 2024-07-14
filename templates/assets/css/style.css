@@ -2227,6 +2227,14 @@ textarea.form-input::-webkit-resizer {
   margin-top: 50px;
 }
 
+.post-content code {
+  border-radius: .5em;
+}
+
+.post-content code span {
+  display: inline;
+}
+
 code,
 hr {
   margin-bottom: 10px;
