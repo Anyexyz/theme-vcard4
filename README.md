@@ -12,9 +12,9 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 |:---:|:---:|
 |![](website-demo-image/desktop.png)|![](website-demo-image/mobile.png)|
 
-  ![](https://img.shields.io/badge/dynamic/yaml?label=Halo&query=%24.spec.requires&url=https://raw.githubusercontent.com/Anyexyz/theme-vcard4/main/theme.yaml&color=113,195,71)
-  ![](https://img.shields.io/github/v/release/Anyexyz/theme-vcard4)
-  ![](https://img.shields.io/badge/License-GPL%20v3.0-green.svg)
+![](https://img.shields.io/badge/dynamic/yaml?label=Halo&query=%24.spec.requires&url=https://raw.githubusercontent.com/Anyexyz/theme-vcard4/main/theme.yaml&color=113,195,71)
+![](https://img.shields.io/github/v/release/Anyexyz/theme-vcard4)
+![](https://img.shields.io/badge/License-GPL%20v3.0-green.svg)
 
 </center>
 
