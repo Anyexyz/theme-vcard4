@@ -8,7 +8,7 @@ spec:
     name: Anye
     website: "https://www.anye.xyz"
   description: vCard4 是一个响应式的个人作品集主题，可适配所有设备。
-  logo: "https://www.halo.run/logo"
+  logo: "https://github.com/Anyexyz/theme-vcard4/blob/main/templates/assets/images/logo.svg?raw=true"
   homepage: "https://github.com/Anyexyz/theme-vcard4#readme"
   repo: "https://github.com/Anyexyz/theme-vcard4"
   issues: "https://github.com/Anyexyz/theme-vcard4/issues"
