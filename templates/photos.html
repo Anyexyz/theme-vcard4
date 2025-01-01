@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -41,7 +41,7 @@
           </ul>
 
           <div class="filter-select-box">
-            <button class="filter-select" data-select>
+            <button class="filter-select" data-filter-btn>
               <div class="select-value" data-selecct-value>选择类别</div>
               <div class="select-icon">
                 <ion-icon name="chevron-down"></ion-icon>
@@ -49,11 +49,11 @@
             </button>
             <ul class="select-list">
               <li class="select-item">
-                <a href="/photos" data-select-btn th:classappend="${#lists.isEmpty(param.group) ? 'active' : ''}"> 全部
+                <a href="/photos" data-filter-btn th:classappend="${#lists.isEmpty(param.group) ? 'active' : ''}"> 全部
                 </a>
               </li>
-              <li th:each="group : ${photoFinder.groupBy()}">
-                <a class="select-item" data-select-item th:href="@{|/photos?group=${group.metadata.name}|}"
+              <li class="select-item" th:each="group : ${photoFinder.groupBy()}">
+                <a data-filter-btn th:href="@{|/photos?group=${group.metadata.name}|}"
                   th:classappend="${#lists.contains(param.group, group.metadata.name) ? 'active' : ''}"
                   th:text="${group.spec.displayName}">
                 </a>
@@ -63,7 +63,11 @@
           <ul class="project-list">
             <li class="project-item  active" data-filter-item th:each="photo : ${photos.items}">
               <figure class="project-img">
-                <img th:src="${photo.spec.url}" th:alt="${photo.spec.displayName}">
+                <img th:src="${photo.spec.url}" th:srcset="|${thumbnail.gen(photo.spec.url, 's')} 400w,
+                             ${thumbnail.gen(photo.spec.url, 'm')} 800w,
+                             ${thumbnail.gen(photo.spec.url, 'l')} 1200w,
+                             ${thumbnail.gen(photo.spec.url, 'xl')} 1600w|" sizes="(max-width: 1600px) 100vw, 1600px"
+                  th:alt="${photo.spec.displayName}">
               </figure>
             </li>
           </ul>
@@ -81,11 +85,11 @@
   </main>
 
   <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
-  <script type="module" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
+  <script type="module"
+    src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
+  <script nomodule
+    src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
 
 </body>
-
-<footer th:replace="modules/footer.html"></footer>
 
 </html>

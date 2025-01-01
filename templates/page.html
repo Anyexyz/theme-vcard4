@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title th:text="${site.title}"></title>
-  <link rel="shortcut icon" th:href="${singlePage.spec.title}" type="image/x-icon">
-  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+  <title th:text="${singlePage.spec.title}"></title>
+  <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -15,30 +15,31 @@
 
 <body>
   <main>
-
+    <aside th:replace="modules/sidebar.html"></aside>
     <div class="main-content">
 
       <nav th:replace="modules/navbar.html"></nav>
 
-      <article class="blog active" data-page="">
+      <article class="post active" data-page="post">
         <header>
           <h2 class="h2 article-title" th:text="${singlePage.spec.title}"></h2>
         </header>
-
-        <div th:utext="${singlePage.content.content}" class="about-text"> </div>
-
+        <section class="blog-posts">
+          <div th:utext="${singlePage.content.content}" class="post-content"> </div>
+        </section>
+        <!-- Comment -->
+        <div class="post-comment">
+          <h2 class="h3 article-title">评论</h2>
+          <halo:comment group="content.halo.run" kind="SinglePage" th:attr="name=${singlePage.metadata.name}" />
+        </div>
       </article>
-
     </div>
-
   </main>
-
   <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
-  <script type="module" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
-
+  <script type="module"
+    src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
+  <script nomodule
+    src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
 </body>
-
-<footer th:replace="modules/footer.html"></footer>
 
 </html>

@@ -3,7 +3,9 @@
     <div class="sidebar-info">
         <figure class="avatar-box">
             <a th:href="${site.url}">
-                <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}"
+                <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}" th:srcset="|${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo, 's')} 400w,
+                              ${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo, 'm')} 800w|"
+                    sizes="(max-width: 800px) 100vw, 800px"
                     th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80" style="border-radius: 30px;
     object-fit: cover;">
             </a>
@@ -39,7 +41,7 @@
                 </div>
                 <div class="contact-info">
                     <p class="contact-title">电话</p>
-                    <a href="tel:${theme.config.index.header_contact.phone}" class="contact-link"
+                    <a th:href="'tel:' + ${theme.config.index.header_contact.phone}" class="contact-link"
                         th:text="${theme.config.index.header_contact.phone}"></a>
                 </div>
             </li>
@@ -75,6 +77,29 @@
                 </a>
             </li>
         </ul>
+
+        <div class="footer-info">
+            <div class="beian" th:if="${not #strings.isEmpty(theme.config.beian.icp_text)}">
+                <a href="https://beian.miit.gov.cn/" target="_blank" th:href="${theme.config.beian.icp_link}"
+                    th:text="${theme.config.beian.icp_text}"></a>
+            </div>
+
+            <div class="gongan" th:if="${not #strings.isEmpty(theme.config.beian.gongan_text)}">
+                <img th:src="@{/assets/images/gongan_beian.webp}" alt="gongan_beian" />
+                <a href="https://beian.mps.gov.cn/#/query/webSearch" target="_blank"
+                    th:href="${theme.config.beian.gongan_link}" th:text="${theme.config.beian.gongan_text}"></a>
+            </div>
+
+            <div class="copyright">
+                <div>
+                    © [[${#dates.format(new java.util.Date().getTime(), 'yyyy')}]] <a href="/"
+                        th:text="${site.title}"></a>
+                </div>
+                <div>
+                    Powered by <a href="https://halo.run" target="_blank">Halo [[${site.version}]]</a>
+                </div>
+            </div>
+        </div>
     </div>
 
 </aside>

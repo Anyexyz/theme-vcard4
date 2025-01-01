@@ -152,3 +152,62 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// 点赞功能
+document.addEventListener('DOMContentLoaded', function() {
+    // 获取所有点赞按钮
+    const likeButtons = document.querySelectorAll('.like-btn.can-like');
+    
+    likeButtons.forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const momentName = this.dataset.moment;
+            const countSpan = this.querySelector('span');
+            const icon = this.querySelector('ion-icon');
+            
+            try {
+                // 发送点赞请求
+                const response = await fetch(`/apis/api.moment.halo.run/v1alpha1/moments/${momentName}/upvote`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // 更新UI
+                    const data = await response.json();
+                    countSpan.textContent = data.upvote;
+                    
+                    // 切换图标和active类
+                    this.classList.toggle('active');
+                    if (this.classList.contains('active')) {
+                        icon.setAttribute('name', 'heart');
+                    } else {
+                        icon.setAttribute('name', 'heart-outline');
+                    }
+                }
+            } catch (error) {
+                console.error('点赞失败:', error);
+            }
+        });
+    });
+    
+    // 评论功能
+    const commentButtons = document.querySelectorAll('.comment-btn');
+    
+    commentButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const momentName = this.dataset.moment;
+            const commentsSection = document.getElementById(`comments-${momentName}`);
+            
+            // 切换评论区显示状态
+            if (commentsSection.style.display === 'none') {
+                commentsSection.style.display = 'block';
+                this.classList.add('active');
+            } else {
+                commentsSection.style.display = 'none';
+                this.classList.remove('active');
+            }
+        });
+    });
+});

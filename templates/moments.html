@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${site.title}"></title>
+    <link rel="shortcut icon" th:href="${site.favicon}" type="image/x-icon">
+    <link rel="stylesheet" th:href="@{/assets/css/style.css?v={version}(version=${theme.spec.version})}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <aside th:replace="modules/sidebar.html"></aside>
+        <div class="main-content">
+            <nav th:replace="modules/navbar.html"></nav>
+
+            <article class="moments active" data-page="瞬间">
+                <header>
+                    <h2 class="h2 article-title">瞬间</h2>
+                </header>
+
+                <!-- 标签列表 -->
+                <section class="moment-tags">
+                    <ul class="filter-list">
+                        <li class="filter-item">
+                            <a href="/moments" th:classappend="${#lists.isEmpty(param.tag) ? 'active' : ''}">全部</a>
+                        </li>
+                        <li class="filter-item" th:each="tag : ${tags}">
+                            <a th:href="@{|/moments?tag=${tag.name}|}"
+                                th:classappend="${#lists.contains(param.tag, tag.name) ? 'active' : ''}"
+                                th:text="${tag.name}">
+                            </a>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 瞬间列表 -->
+                <section class="moments-list">
+                    <ul class="moments-posts-list">
+                        <li class="blog-post-item" th:each="moment : ${moments.items}"
+                            th:with="content=${moment.spec.content}">
+                            <!-- 作者信息 -->
+                            <div class="moment-author">
+                                <img th:src="${moment.owner.avatar ?: #theme.assets('/images/default-avatar.svg')}"
+                                    th:alt="${moment.owner.displayName}" class="author-avatar">
+                                <span class="author-name" th:text="${moment.owner.displayName}"></span>
+                            </div>
+
+                            <div class="blog-content">
+                                <!-- 瞬间文字内容 -->
+                                <div class="moment-text" th:if="${not #strings.isEmpty(content.html)}"
+                                    th:utext="${content.html}">
+                                </div>
+
+                                <!-- 瞬间媒体内容 -->
+                                <div class="moment-media" th:if="${not #lists.isEmpty(content.medium)}">
+                                    <th:block th:each="momentItem : ${content.medium}">
+                                        <!-- 图片 -->
+                                        <figure class="moment-img" th:if="${momentItem.type.name == 'PHOTO'}">
+                                            <img th:src="${momentItem.url}" th:srcset="|${thumbnail.gen(momentItem.url, 's')} 400w,
+                                                          ${thumbnail.gen(momentItem.url, 'm')} 800w,
+                                                          ${thumbnail.gen(momentItem.url, 'l')} 1200w|"
+                                                sizes="(max-width: 1200px) 100vw, 1200px" loading="lazy">
+                                        </figure>
+                                        <!-- 视频 -->
+                                        <div class="moment-video" th:if="${momentItem.type.name == 'VIDEO'}">
+                                            <div class="video-wrapper">
+                                                <video th:src="${momentItem.url}" controls></video>
+                                                <div class="video-play-btn">
+                                                    <ion-icon name="play"></ion-icon>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- 音频 -->
+                                        <div class="moment-audio" th:if="${momentItem.type.name == 'AUDIO'}">
+                                            <audio th:src="${momentItem.url}" controls></audio>
+                                        </div>
+                                    </th:block>
+                                </div>
+
+                                <!-- 瞬间元信息和交互 -->
+                                <div class="moment-meta">
+                                    <!-- 点赞 -->
+                                    <div class="meta-item like-btn" th:attr="data-moment=${moment.metadata.name}"
+                                        th:classappend="${#authentication.isAuthenticated()} ? 'can-like' : ''">
+                                        <ion-icon name="heart-outline"></ion-icon>
+                                        <span th:text="${moment.stats.upvote}"></span>
+                                    </div>
+                                    <!-- 评论 -->
+                                    <div class="meta-item comment-btn" th:attr="data-moment=${moment.metadata.name}">
+                                        <ion-icon name="chatbubble-outline"></ion-icon>
+                                        <span th:text="${moment.stats.approvedComment}"></span>
+                                    </div>
+                                    <!-- 发布时间 -->
+                                    <time class="meta-item"
+                                        th:text="${#dates.format(moment.spec.releaseTime,'yyyy-MM-dd HH:mm')}">
+                                    </time>
+                                </div>
+
+                                <!-- 评论区 -->
+                                <div class="moment-comments" th:id="${'comments-' + moment.metadata.name}"
+                                    style="display: none;">
+                                    <div class="separator"></div>
+                                    <halo:comment group="moment.halo.run" kind="Moment"
+                                        th:attr="name=${moment.metadata.name}" />
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 分页 -->
+                <div class="index-paination" th:if="${moments.hasPrevious() || moments.hasNext()}">
+                    <div th:replace="~{modules/pagination :: page('',${moments})}"></div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
+    <script type="module"
+        src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+        src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
+</body>
+
+
+
+</html>

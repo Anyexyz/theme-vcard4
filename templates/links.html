@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -33,9 +33,9 @@
                         <li class="service-item link-info" th:each="link : ${group.links}">
                             <a th:href="${link.spec.url}" class="flex">
                                 <div class="service-icon-box">
-                                    <img th:src="${link.spec.logo}" th:alt="${link.spec.displayName}" width="50" style="  margin-right: 1.25rem;
-                                    border-radius: 0.875rem;
-                                    object-fit: cover;">
+                                    <img th:src="${link.spec.logo}" th:srcset="|${thumbnail.gen(link.spec.logo, 's')} 400w,
+                                                 ${thumbnail.gen(link.spec.logo, 'm')} 800w|"
+                                        sizes="(max-width: 800px) 100vw, 800px" th:alt="${link.spec.displayName}">
                                 </div>
                                 <div class="service-content-box">
                                     <h4 class="h4 service-item-title" th:text="${link.spec.displayName}"></h4>
@@ -52,11 +52,13 @@
     </main>
 
     <script th:src="@{/assets/js/script.js?v={version}(version=${theme.spec.version})}"></script>
-    <script type="module" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
+    <script type="module"
+        src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.esm.js"></script>
+    <script nomodule
+        src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ioniconshttps://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/ionicons/5.5.2/ionicons/ionicons.js"></script>
 
 </body>
 
-<footer th:replace="modules/footer.html"></footer>
+
 
 </html>

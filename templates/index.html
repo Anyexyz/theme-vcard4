@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN">
+<html xmlns:th="https://www.thymeleaf.org" lang="zh-CN" class="dark">
 
 <head>
   <meta charset="UTF-8">
@@ -30,19 +30,18 @@
           <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
             <li class="blog-post-item" th:each="post : ${posts.items}">
               <a th:href="${post.status.permalink}">
-                <figure class="blog-banner-box">
-                  <img th:src="${post.spec.cover ?: #theme.assets('/images/halo.jpg')}" alt="" loading="lazy">
+                <figure class="blog-banner-box" th:if="${post.spec.cover}">
+                  <img th:src="${post.spec.cover}" th:srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w,
+                              ${thumbnail.gen(post.spec.cover, 'm')} 800w,
+                              ${thumbnail.gen(post.spec.cover, 'l')} 1200w|" sizes="(max-width: 1200px) 100vw, 1200px"
+                    loading="lazy" th:alt="${post.spec.title}" class="blog-banner">
                 </figure>
+
                 <div class="blog-content">
                   <div class="blog-meta">
-                    <p class="blog-category" th:if="${! #strings.isEmpty(post.spec.categories)}"
-                      th:each="category_name : ${post.spec.categories}"
-                      th:with="category = ${categoryFinder.getByName(category_name)}"
-                      th:text="${category.spec.displayName}">
-                    </p>
+                    <p class="blog-category" th:text="${post.categories[0].spec.displayName}"></p>
                     <span class="dot"></span>
-                    <time th:datetime="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"
-                      th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
+                    <time datetime="2022-02-23" th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
                   </div>
                   <h3 class="h3 blog-item-title" th:text="${post.spec.title}"></h3>
                   <p class="blog-text" th:text="${post.status.excerpt}"></p>
@@ -69,6 +68,6 @@
 
 </body>
 
-<footer th:replace="modules/footer.html"></footer>
+
 
 </html>

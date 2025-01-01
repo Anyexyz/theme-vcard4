@@ -24,7 +24,12 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 - [x] [链接管理](https://www.halo.run/store/apps/app-hfbQg)
 - [x] [图库管理](https://github.com/halo-sigs/plugin-photos)
 - [x] [评论组件](https://www.halo.run/store/apps/app-YXyaD)
+- [x] [瞬间](https://www.halo.run/store/apps/app-SnwWD)
 - [x] [RSS](https://www.halo.run/store/apps/app-KhIVw)
+
+## 已知 Bug 待修复
+
+- 瞬间无法点赞
 
 ## 🏭 贡献
 
@@ -50,4 +55,5 @@ vCard4 是一个响应式的个人作品集主题，可适配所有设备，移�
 - [theme-vcard](https://github.com/wflac/theme-vcard)
 - [Halo](https://halo.run)
 - [theme-starter](https://github.com/halo-dev/theme-starter)
+- [Cursor](https://github.com/getcursor/cursor)
 - ...

@@ -91,11 +91,11 @@ spec:
               validation: "required"
 
     - group: about
-      label: 关于页
+      label: 个人简历页
       formSchema:
         - $formkit: text
           name: title
-          label: 标题
+          label: 标题（需新建页面并选择个人简历模板生效）
           value: "关于我"
         - $formkit: group
           name: about_me
