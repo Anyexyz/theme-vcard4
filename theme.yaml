@@ -2,6 +2,8 @@ apiVersion: theme.halo.run/v1alpha1
 kind: Theme
 metadata:
   name: theme-vcard4
+  annotations:
+    "store.halo.run/app-id": "app-EFeTP"
 spec:
   displayName: Theme vCard4
   author:

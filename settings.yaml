@@ -2,6 +2,8 @@ apiVersion: v1alpha1
 kind: Setting
 metadata:
   name: theme-vcard4-setting
+  annotations:
+    "store.halo.run/app-id": "app-EFeTP"
 spec:
   forms:
     - group: index
