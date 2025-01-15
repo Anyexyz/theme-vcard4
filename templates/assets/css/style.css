@@ -2634,6 +2634,10 @@ hr {
     font-size: 18px;
 }
 
+.like-btn {
+  cursor: pointer;
+}
+
 .like-btn.active {
     color: var(--orange-yellow-crayola);
 }

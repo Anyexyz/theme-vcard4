@@ -86,7 +86,7 @@
                                 <!-- 瞬间元信息和交互 -->
                                 <div class="moment-meta">
                                     <!-- 点赞 -->
-                                    <div class="meta-item like-btn" th:attr="data-moment=${moment.metadata.name}"
+                                    <div class="meta-item like-btn" data-type="moment" th:attr="data=${moment.metadata.name}"
                                         th:classappend="${#authentication.isAuthenticated()} ? 'can-like' : ''">
                                         <ion-icon name="heart-outline"></ion-icon>
                                         <span th:text="${moment.stats.upvote}"></span>
