@@ -39,7 +39,8 @@
 
                 <div class="blog-content">
                   <div class="blog-meta">
-                    <p class="blog-category" th:text="${post.categories[0].spec.displayName}"></p>
+                    <p class="blog-category"
+                      th:text="${#lists.isEmpty(post.categories) ? '未分类' : post.categories[0].spec.displayName}"></p>
                     <span class="dot"></span>
                     <time datetime="2022-02-23" th:text="${#dates.format(post.spec.publishTime,'yyyy-MM-dd')}"></time>
                   </div>
