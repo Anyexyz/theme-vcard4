@@ -30,7 +30,7 @@
           <ul class="blog-posts-list" th:with="posts = ${postFinder.list(page,10)}">
             <li class="blog-post-item" th:each="post : ${posts.items}">
               <a th:href="${post.status.permalink}">
-                <figure class="blog-banner-box" th:if="${post.spec.cover}">
+                <figure class="blog-banner-box" th:if="${post.spec.cover} != ''">
                   <img th:src="${post.spec.cover}" th:srcset="|${thumbnail.gen(post.spec.cover, 's')} 400w,
                               ${thumbnail.gen(post.spec.cover, 'm')} 800w,
                               ${thumbnail.gen(post.spec.cover, 'l')} 1200w|" sizes="(max-width: 1200px) 100vw, 1200px"
