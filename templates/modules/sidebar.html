@@ -3,11 +3,12 @@
     <div class="sidebar-info">
         <figure class="avatar-box">
             <a th:href="${site.url}">
-                <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo}" th:srcset="|${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo, 's')} 400w,
-                              ${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo, 'm')} 800w|"
+                <img th:src="${theme.config.index.header_info.header_info_img ?: site.logo ?: 'https://www.halo.run/logo'}"
+                    th:srcset="|${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo ?: 'https://www.halo.run/logo', 's')} 400w,
+                                 ${thumbnail.gen(theme.config.index.header_info.header_info_img ?: site.logo ?: 'https://www.halo.run/logo', 'm')} 800w|"
                     sizes="(max-width: 800px) 100vw, 800px"
-                    th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80" style="border-radius: 30px;
-    object-fit: cover;">
+                    th:alt="${theme.config.index.header_info.header_info_title  ?: site.title}" width="80"
+                    style="border-radius: 30px; object-fit: cover;">
             </a>
         </figure>
         <div class="info-content">
