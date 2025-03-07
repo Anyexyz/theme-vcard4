@@ -10,13 +10,13 @@ spec:
     name: Anye
     website: https://www.anye.xyz
   description: vCard4 是一个响应式的个人作品集主题，可适配所有设备。
-  logo: https://github.com/Anyexyz/theme-vcard4/blob/main/templates/assets/images/logo.svg?raw=true
-  homepage: https://github.com/Anyexyz/theme-vcard4#readme
+  logo: https://cdn.jsdelivr.net/gh/Anyexyz/theme-vcard4@main/templates/assets/images/logo.svg
+  homepage: https://www.halo.run/store/apps/app-EFeTP
   repo: https://github.com/Anyexyz/theme-vcard4
   issues: https://github.com/Anyexyz/theme-vcard4/issues
   settingName: theme-vcard4-setting
   configMapName: theme-vcard4-configMap
-  version: "1.1.0"
+  version: "1.1.1"
   requires: ">=2.19.0"
   license:
     - name: "GPL-3.0"
