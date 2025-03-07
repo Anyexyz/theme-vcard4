@@ -46,7 +46,7 @@
                             th:with="content=${moment.spec.content}">
                             <!-- 作者信息 -->
                             <div class="moment-author">
-                                <img th:src="${moment.owner.avatar ?: #theme.assets('/images/default-avatar.svg')}"
+                                <img th:src="${moment.owner.avatar ?: #theme.assets('/images/logo.svg')}"
                                     th:alt="${moment.owner.displayName}" class="author-avatar">
                                 <span class="author-name" th:text="${moment.owner.displayName}"></span>
                             </div>
