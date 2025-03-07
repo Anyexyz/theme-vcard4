@@ -154,44 +154,87 @@ for (let i = 0; i < navigationLinks.length; i++) {
 }
 
 // 点赞功能
-document.addEventListener('DOMContentLoaded', function() {
-    // 获取所有点赞按钮
-    const likeButtons = document.querySelectorAll('.like-btn.can-like');
-    
-    likeButtons.forEach(btn => {
-        btn.addEventListener('click', async function() {
-            const momentName = this.dataset.moment;
-            const countSpan = this.querySelector('span');
-            const icon = this.querySelector('ion-icon');
-            
-            try {
-                // 发送点赞请求
-                const response = await fetch(`/apis/api.moment.halo.run/v1alpha1/moments/${momentName}/upvote`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
-                
-                if (response.ok) {
-                    // 更新UI
-                    const data = await response.json();
-                    countSpan.textContent = data.upvote;
-                    
-                    // 切换图标和active类
-                    this.classList.toggle('active');
-                    if (this.classList.contains('active')) {
-                        icon.setAttribute('name', 'heart');
-                    } else {
-                        icon.setAttribute('name', 'heart-outline');
-                    }
-                }
-            } catch (error) {
-                console.error('点赞失败:', error);
-            }
-        });
-    });
-    
+// 处理点赞按钮点击事件
+const UpvoteManager = (group, plural) => {
+	const STORAGE_KEY = `anatole.upvoted.${group}.names`;
+
+	return {
+		upvotedNames: [],
+		init() {
+			// 从 localStorage 中加载已点赞的名称
+			this.upvotedNames = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+		},
+		upvoted(name) {
+			// 检查是否已经点赞
+			return this.upvotedNames.includes(name);
+		},
+		async handleUpvote(name) {
+			if (this.upvoted(name)) return; // 如果已经点赞，直接返回
+
+			try {
+				const response = await fetch("/apis/api.halo.run/v1alpha1/trackers/upvote", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						group,
+						plural,
+						name,
+					}),
+				});
+
+				if (!response.ok) {
+					throw new Error("网络请求失败");
+				}
+
+				// 更新本地存储和 UI
+				this.upvotedNames = [...this.upvotedNames, name];
+				localStorage.setItem(STORAGE_KEY, JSON.stringify(this.upvotedNames));
+
+				const upvoteElement = document.querySelector(`[data="${name}"] span`);
+				if (upvoteElement) {
+					const currentCount = parseInt(upvoteElement.textContent || "0");
+					upvoteElement.textContent = currentCount + 1;
+				}
+			} catch (error) {
+				console.error("点赞失败:", error);
+				alert("网络请求失败，请稍后再试");
+			}
+		},
+	};
+};
+
+// 初始化点赞管理器
+const momentUpvoteManager = UpvoteManager("moment.halo.run", "moments");
+const postUpvoteManager = UpvoteManager("content.halo.run", "posts");
+const pageUpvoteManager = UpvoteManager("content.halo.run", "singlepages");
+
+momentUpvoteManager.init();
+postUpvoteManager.init();
+pageUpvoteManager.init();
+
+// 绑定点赞按钮点击事件
+document.addEventListener("DOMContentLoaded", () => {
+	const likeButtons = document.querySelectorAll(".like-btn");
+
+	likeButtons.forEach((button) => {
+		button.addEventListener("click", (event) => {
+			const name = button.getAttribute("data");
+			const type = button.getAttribute("data-type"); // 获取点赞类型
+
+			// 根据类型调用对应的点赞管理器
+			if (type === "moment") {
+				momentUpvoteManager.handleUpvote(name);
+			} else if (type === "content") {
+				postUpvoteManager.handleUpvote(name);
+			} else if (type === "singlepages") {
+				pageUpvoteManager.handleUpvote(name);
+			}
+		});
+	});
+
+
     // 评论功能
     const commentButtons = document.querySelectorAll('.comment-btn');
     
