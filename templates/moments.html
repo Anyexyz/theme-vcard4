@@ -116,7 +116,7 @@
 
                 <!-- 分页 -->
                 <div class="index-paination" th:if="${moments.hasPrevious() || moments.hasNext()}">
-                    <div th:replace="~{modules/pagination :: page('',${moments})}"></div>
+                    <div th:replace="~{modules/pagination :: page('/moments',${moments})}"></div>
                 </div>
             </article>
         </div>
